@@ -1,0 +1,1043 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LOMLA.land — Cat Kingdom</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --olive:#6B7A4F;
+      --olive-soft:#A8B18F;
+      --cream:#FAF7F2;
+      --blush:#E6CFC2;
+      --gold:#C8A24A;
+
+      --text:#1f2418;
+      --muted:#5a5f50;
+
+      --border:1px solid rgba(107,122,79,.18);
+      --shadow:0 10px 30px rgba(0,0,0,.06);
+      --shadow-sm:0 6px 18px rgba(0,0,0,.05);
+
+      --r-lg:18px;
+      --r-md:14px;
+
+      --glass: rgba(250,247,242,.62);
+      --glass2: rgba(250,247,242,.78);
+
+      --hover-green: rgba(107,122,79,.95);
+      --hover-ring: rgba(107,122,79,.55);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+   body{
+  margin:0;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  color:var(--text);
+  overflow-x:hidden;
+  background:#000; /* fallback */
+}
+
+
+    /* ===== Animated background layer (no file needed) ===== */
+    .bg{
+      position:fixed;
+      inset:0;
+      z-index:-10;
+      pointer-events:none;
+      overflow:hidden;
+    }
+    .bg::before{
+      content:"";
+      position:absolute;
+      inset:-40px;
+      background:
+        radial-gradient(circle at 10% 20%, rgba(200,162,74,.14), transparent 45%),
+        radial-gradient(circle at 90% 30%, rgba(168,177,143,.22), transparent 45%),
+        radial-gradient(circle at 30% 90%, rgba(230,207,194,.18), transparent 45%),
+        linear-gradient(180deg, rgba(250,247,242,.10), rgba(250,247,242,.20));
+      filter: blur(0px);
+      opacity:.95;
+    }
+
+    /* sparkles */
+    .sparkle{
+      position:absolute;
+      inset:0;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,.85) 0 2px, transparent 3px),
+        radial-gradient(circle, rgba(200,162,74,.75) 0 1.5px, transparent 3px),
+        radial-gradient(circle, rgba(255,255,255,.65) 0 1.2px, transparent 3px);
+      background-size: 180px 180px, 260px 260px, 340px 340px;
+      background-position: 0 0, 40px 120px, 90px 40px;
+      opacity:.35;
+      animation: floatStars 14s linear infinite;
+      filter: blur(.15px);
+    }
+    @keyframes floatStars{
+      0%{ transform: translate3d(0,0,0); }
+      100%{ transform: translate3d(-120px, -90px, 0); }
+    }
+
+    /* floating icons (cats + paws + notes) */
+    .floaters span{
+      position:absolute;
+      font-size:20px;
+      opacity:.35;
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,.10));
+      animation: bob 6s ease-in-out infinite;
+    }
+    .floaters span:nth-child(1){ left:6%; top:22%; animation-duration:7s; }
+    .floaters span:nth-child(2){ left:12%; top:72%; animation-duration:6.5s; }
+    .floaters span:nth-child(3){ left:86%; top:18%; animation-duration:7.5s; }
+    .floaters span:nth-child(4){ left:78%; top:66%; animation-duration:6.2s; }
+    .floaters span:nth-child(5){ left:52%; top:14%; animation-duration:8s; }
+    .floaters span:nth-child(6){ left:46%; top:78%; animation-duration:6.8s; }
+    @keyframes bob{
+      0%,100%{ transform: translateY(0) rotate(0deg); }
+      50%{ transform: translateY(-10px) rotate(2deg); }
+    }
+
+    /* Optional: use your own GIF/video background
+       Put a file in: pics/catkingdom_bg.gif or mp4 and uncomment below
+    */
+    /*
+    body{
+      background: #8f9b75;
+    }
+    .bgMedia{
+      position:fixed; inset:0; z-index:-20;
+      width:100%; height:100%; object-fit:cover;
+      opacity:.95;
+      filter: saturate(1.05) contrast(1.02);
+    }
+    */
+    .bg{
+  position:fixed;
+  inset:0;
+  z-index:-20;
+  overflow:hidden;
+}
+
+.bgGif{
+  position:absolute;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  filter: saturate(1.05) contrast(1.02);
+}
+
+.overlay{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.25); /* يخلي النص واضح */
+  backdrop-filter: blur(2px);
+}
+
+
+    a{color:inherit; text-decoration:none}
+
+    .wrap{
+      max-width:1100px;
+      margin:0 auto;
+      padding:24px 18px 60px;
+    }
+
+    /* Sticky topbar */
+    .topbar{
+      position:sticky; top:0; z-index:30;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding:10px 0 14px;
+      margin:0 0 12px;
+      background: rgba(250,247,242,.35);
+      border-bottom: 1px solid rgba(107,122,79,.10);
+    }
+    .topbarInner{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+      max-width:1100px;
+      margin:0 auto;
+      padding:0 18px;
+    }
+
+    .brand{
+      display:flex; align-items:baseline; gap:10px;
+      font-family:"Playfair Display",serif;
+      letter-spacing:.4px;
+    }
+    .brand .logo{font-size:26px; font-weight:600; color:var(--olive)}
+    .brand .tag{
+      font-family:Inter,sans-serif;
+      font-size:12px; color:var(--muted);
+      padding:6px 10px; border-radius:999px;
+      border:var(--border);
+      background:rgba(250,247,242,.55);
+      backdrop-filter: blur(6px);
+      white-space:nowrap;
+    }
+
+    .actions{display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end}
+    .btn{
+      border:var(--border);
+      background: rgba(250,247,242,.70);
+      color:var(--olive);
+      padding:10px 14px;
+      border-radius:999px;
+      box-shadow:var(--shadow-sm);
+      cursor:pointer;
+      display:inline-flex; align-items:center; gap:8px;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+      user-select:none;
+      font-weight:500;
+      line-height:1;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      outline:none;
+    }
+    .btn:hover{ transform: translateY(-1px); box-shadow: var(--shadow); }
+
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(107,122,79,.96), rgba(107,122,79,.86));
+      color: var(--cream);
+      border: 1px solid rgba(107,122,79,.55);
+    }
+
+    /* ✅ Green border on hover for "anything you point at" */
+    .btn:hover, .btn:focus-visible,
+    .panel:hover, .panel:focus-within,
+    .card:hover, .card:focus-within,
+    .navCard:hover, .navCard:focus-within,
+    .miniBtn:hover, .miniBtn:focus-visible,
+    .stat:hover, .stat:focus-within,
+    input:hover, textarea:hover, select:hover,
+    input:focus, textarea:focus, select:focus{
+      border-color: rgba(107,122,79,.55) !important;
+      box-shadow: 0 0 0 3px rgba(107,122,79,.20), var(--shadow-sm);
+    }
+
+    .panel{
+      background: rgba(250,247,242,.62);
+      border: var(--border);
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow);
+      padding:18px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    h1{
+      margin:0 0 8px;
+      font-family:"Playfair Display",serif;
+      font-size:34px;
+      line-height:1.18;
+      color:var(--olive);
+      letter-spacing:.2px;
+    }
+    p{margin:0; color:var(--muted); line-height:1.8; font-size:14.5px}
+
+    .grid{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:14px;
+      align-items:start;
+    }
+    @media (max-width: 980px){
+      .grid{ grid-template-columns:1fr; }
+    }
+
+    /* cards */
+    .card{
+      border: var(--border);
+      border-radius: 18px;
+      background: rgba(250,247,242,.70);
+      box-shadow: var(--shadow-sm);
+      padding:14px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .sectionTitle{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:10px;
+    }
+    .pill{
+      font-size:12px;
+      padding:7px 10px;
+      border-radius:999px;
+      border: var(--border);
+      background: rgba(168,177,143,.10);
+      color: var(--olive);
+      display:inline-flex; align-items:center; gap:8px;
+      white-space:nowrap;
+    }
+    .pill .tiny{
+      width:6px;height:6px;border-radius:50%;
+      background: var(--olive);
+      opacity:.75;
+    }
+
+    /* Cat cards */
+    .cats{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:12px;
+      margin-top:12px;
+    }
+
+    .catCard{
+      border-radius: 18px;
+      border: var(--border);
+      background: rgba(250,247,242,.74);
+      box-shadow: var(--shadow-sm);
+      padding:16px;
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
+      position:relative;
+      overflow:hidden;
+    }
+    .catCard::before{
+      content:"";
+      position:absolute;
+      inset:-80px -60px auto auto;
+      width:220px; height:220px;
+      background: radial-gradient(circle at 30% 30%, rgba(200,162,74,.18), transparent 60%);
+      transform: rotate(18deg);
+      pointer-events:none;
+      opacity:.9;
+    }
+
+    .avatar{
+      width:54px; height:54px;
+      border-radius: 16px;
+      border:1px solid rgba(107,122,79,.22);
+      background:
+        radial-gradient(circle at 30% 30%, rgba(168,177,143,.30), transparent 55%),
+        radial-gradient(circle at 70% 70%, rgba(230,207,194,.22), transparent 55%),
+        rgba(250,247,242,.8);
+      display:grid; place-items:center;
+      overflow:hidden;
+      flex:0 0 auto;
+    }
+    .avatar img{
+      width:100%; height:100%;
+      object-fit: contain;
+      image-rendering: pixelated;
+      transform: scale(1.06);
+    }
+
+    .catBody{ flex:1; min-width:0; }
+    .catName{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:6px;
+    }
+    .catName b{
+      font-family:"Playfair Display", serif;
+      font-size:20px;
+      color: var(--olive);
+      letter-spacing:.2px;
+    }
+    .role{
+      font-size:12px;
+      color:var(--muted);
+      border: 1px solid rgba(107,122,79,.18);
+      background: rgba(168,177,143,.10);
+      padding:6px 10px;
+      border-radius:999px;
+      white-space:nowrap;
+    }
+
+    .metaRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:10px;
+      align-items:center;
+    }
+    .badge{
+      font-size:12px;
+      color: var(--muted);
+      border: var(--border);
+      background: rgba(250,247,242,.75);
+      padding:6px 10px;
+      border-radius:999px;
+      white-space:nowrap;
+    }
+    .badge.gold{
+      border-color: rgba(200,162,74,.45);
+      background: rgba(200,162,74,.10);
+      color:#5a4a20;
+    }
+
+    .actionsRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:12px;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    .miniBtn{
+      border:var(--border);
+      background: rgba(250,247,242,.88);
+      color:var(--olive);
+      border-radius:999px;
+      padding:9px 10px;
+      cursor:pointer;
+      font-size:12.5px;
+      box-shadow:var(--shadow-sm);
+      user-select:none;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+      line-height:1;
+      outline:none;
+    }
+    .miniBtn:hover{transform: translateY(-1px); box-shadow: var(--shadow);}
+
+    .kpis{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:10px;
+      margin-top:12px;
+    }
+    @media (max-width: 520px){
+      .kpis{grid-template-columns:1fr;}
+    }
+    .kpi{
+      border: var(--border);
+      background: rgba(250,247,242,.78);
+      border-radius: 16px;
+      padding:12px;
+      box-shadow: var(--shadow-sm);
+      min-height:86px;
+      position:relative;
+      overflow:hidden;
+    }
+    .kpi .t{
+      font-size:12px;
+      color:var(--muted);
+      display:flex;
+      gap:8px;
+      align-items:center;
+      margin-bottom:6px;
+    }
+    .kpi .v{
+      font-family:"Playfair Display",serif;
+      font-size:24px;
+      color: var(--olive);
+      letter-spacing:.2px;
+      margin:0;
+    }
+    .kpi small{color:var(--muted)}
+    .kpi::after{
+      content:"";
+      position:absolute;
+      right:-40px; top:-40px;
+      width:140px; height:140px;
+      background: radial-gradient(circle at 30% 30%, rgba(107,122,79,.14), transparent 60%);
+      transform: rotate(10deg);
+      pointer-events:none;
+    }
+
+    .sidePanel .line{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+    }
+    .field{
+      width:100%;
+      border:1px solid rgba(107,122,79,.22);
+      background: rgba(250,247,242,.92);
+      border-radius: 14px;
+      padding: 10px 12px;
+      outline:none;
+      font-size:14px;
+      color: var(--text);
+      box-shadow: var(--shadow-sm);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      font-family: Inter, system-ui, sans-serif;
+    }
+    .field:focus{ transform: translateY(-1px); }
+
+    .list{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin-top:12px;
+      max-height: 340px;
+      overflow:auto;
+      padding-right:6px;
+    }
+    .logItem{
+      border: var(--border);
+      background: rgba(250,247,242,.78);
+      border-radius: 16px;
+      padding: 10px 12px;
+      box-shadow: var(--shadow-sm);
+      font-size:13px;
+      line-height:1.6;
+      color: var(--muted);
+    }
+    .logItem b{color:var(--olive)}
+
+    /* toast */
+    .toast{
+      position: fixed;
+      left: 18px;
+      bottom: 18px;
+      background: rgba(250,247,242,.92);
+      border: var(--border);
+      box-shadow: var(--shadow);
+      border-radius: 999px;
+      padding: 10px 14px;
+      display:flex; align-items:center; gap:10px;
+      opacity:0;
+      transform: translateY(8px);
+      transition: opacity .25s ease, transform .25s ease;
+      pointer-events:none;
+      max-width: calc(100vw - 36px);
+      z-index:50;
+    }
+    .toast.show{opacity:1; transform: translateY(0);}
+    .dot{
+      width:8px;height:8px;border-radius:50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 3px rgba(200,162,74,.18);
+      flex:0 0 auto;
+    }
+    .toast small{color:var(--muted)}
+
+    /* fun tiny animation on cat name */
+    .wiggle{
+      animation: wiggle .6s ease;
+    }
+    @keyframes wiggle{
+      0%{ transform: rotate(0deg); }
+      25%{ transform: rotate(-2deg); }
+      50%{ transform: rotate(2deg); }
+      75%{ transform: rotate(-1deg); }
+      100%{ transform: rotate(0deg); }
+    }
+
+  </style>
+</head>
+
+<body>
+<div class="bg">
+  <img src="pics/catkingdom1.gif" class="bgGif" alt="">
+  <div class="overlay"></div>
+
+  <!-- Optional extra sparkles -->
+  <div class="sparkle"></div>
+  <div class="floaters">
+    <span>🐾</span><span>✨</span><span>🐱</span><span>🎵</span><span>👑</span><span>💛</span>
+  </div>
+</div>
+
+
+  <header class="topbar">
+    <div class="topbarInner">
+      <div class="brand">
+        <div class="logo">LOMLA.land</div>
+        <div class="tag">Olive • Cute Luxury • Cat Kingdom</div>
+      </div>
+
+      <div class="actions">
+        <a class="btn" href="index.html">← Home</a>
+        <a class="btn" href="playlist.html">🎵 Playlist</a>
+        <a class="btn primary" href="secret.html">🔐 Secret</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <section class="panel" tabindex="-1">
+      <h1>🐾 Cat Kingdom</h1>
+      <p>
+        Royal statistics, funny logs, and important operations (feeding + 💩 paperwork).<br>
+        Everything saves automatically on this device.
+      </p>
+
+      <div class="grid">
+        <!-- LEFT: Cats -->
+        <div>
+          <div class="card" style="margin-top:14px;">
+            <div class="sectionTitle">
+              <div style="font-weight:700;color:var(--olive)">👑 Royal Cats</div>
+              <span class="pill"><span class="tiny"></span> meow-powered</span>
+            </div>
+
+            <div class="cats">
+              <!-- LIA -->
+              <div class="catCard" data-cat="lia">
+                <div class="avatar" aria-hidden="true">
+                  <!-- change paths if needed -->
+                  <img src="pics/lia.png.png" alt="LIA pixel cat" />
+                </div>
+
+                <div class="catBody">
+                  <div class="catName">
+                    <b id="name-lia">LIA</b>
+                    <span class="role">Himalayan Queen</span>
+                  </div>
+
+                  <p>
+                    Calm queen… elegant presence. Hidden cute: <b>MAX</b>.
+                  </p>
+
+                  <div class="kpis">
+                    <div class="kpi">
+                      <div class="t">🍗 Meals today</div>
+                      <p class="v" data-kpi="meals">0</p>
+                      <small>cost: <b>$<span data-kpi="cost">0.00</span></b></small>
+                    </div>
+                    <div class="kpi">
+                      <div class="t">💩 Royal poops</div>
+                      <p class="v" data-kpi="poops">0</p>
+                      <small>stink level: <b><span data-kpi="stink">0</span>/10</b></small>
+                    </div>
+                  </div>
+
+                  <div class="metaRow">
+                    <span class="badge gold">👑 Status: Royal</span>
+                    <span class="badge">🧶 Mood: <span data-kpi="mood">Chill</span></span>
+                    <span class="badge">⚖️ Chonk: <span data-kpi="chonk">0</span>%</span>
+                  </div>
+
+                  <div class="actionsRow">
+                    <div class="line">
+                      <button class="miniBtn" type="button" data-action="feed">🍗 Feed</button>
+                      <button class="miniBtn" type="button" data-action="poop">💩 Poop</button>
+                      <button class="miniBtn" type="button" data-action="play">🧶 Play</button>
+                      <button class="miniBtn" type="button" data-action="random">🎲 Random</button>
+                    </div>
+                    <button class="miniBtn" type="button" data-action="reset">🧹 Reset today</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- HUSISA -->
+              <div class="catCard" data-cat="husisa">
+                <div class="avatar" aria-hidden="true">
+                  <img src="pics/husisa.png.png" alt="HUSISA pixel cat" />
+                </div>
+
+                <div class="catBody">
+                  <div class="catName">
+                    <b id="name-husisa">HUSISA</b>
+                    <span class="role">The Guardian Cat</span>
+                  </div>
+
+                  <p>
+                    The official guardian… if she’s mad? nobody comes close 😌
+                  </p>
+
+                  <div class="kpis">
+                    <div class="kpi">
+                      <div class="t">🍗 Meals today</div>
+                      <p class="v" data-kpi="meals">0</p>
+                      <small>cost: <b>$<span data-kpi="cost">0.00</span></b></small>
+                    </div>
+                    <div class="kpi">
+                      <div class="t">💩 Royal poops</div>
+                      <p class="v" data-kpi="poops">0</p>
+                      <small>stink level: <b><span data-kpi="stink">0</span>/10</b></small>
+                    </div>
+                  </div>
+
+                  <div class="metaRow">
+                    <span class="badge gold">🛡️ Status: Guardian</span>
+                    <span class="badge">🧶 Mood: <span data-kpi="mood">Serious</span></span>
+                    <span class="badge">⚖️ Chonk: <span data-kpi="chonk">0</span>%</span>
+                  </div>
+
+                  <div class="actionsRow">
+                    <div class="line">
+                      <button class="miniBtn" type="button" data-action="feed">🍗 Feed</button>
+                      <button class="miniBtn" type="button" data-action="poop">💩 Poop</button>
+                      <button class="miniBtn" type="button" data-action="play">🧶 Play</button>
+                      <button class="miniBtn" type="button" data-action="random">🎲 Random</button>
+                    </div>
+                    <button class="miniBtn" type="button" data-action="reset">🧹 Reset today</button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Control / Logs -->
+        <aside class="panel sidePanel">
+          <div class="sectionTitle">
+            <div style="font-weight:700;color:var(--olive)">📜 Royal Logbook</div>
+            <span class="pill"><span class="tiny"></span> funny mode</span>
+          </div>
+
+          <div class="card">
+            <div style="font-weight:600;color:var(--olive);margin-bottom:8px;">Settings</div>
+
+            <div class="line" style="margin-bottom:10px;">
+              <label style="font-size:12px;color:var(--muted);flex:1;">
+                🍗 Meal price ($)
+                <input class="field" id="mealPrice" type="number" step="0.01" min="0" placeholder="e.g. 1.25" />
+              </label>
+              <label style="font-size:12px;color:var(--muted);flex:1;">
+                💩 Stink multiplier
+                <input class="field" id="stinkMult" type="number" step="1" min="1" max="5" placeholder="1..5" />
+              </label>
+            </div>
+
+            <div class="line">
+              <button class="btn" id="saveSettings" type="button">💾 Save</button>
+              <button class="btn" id="resetAll" type="button">🧨 Reset ALL</button>
+            </div>
+
+            <p style="margin-top:10px;color:var(--muted);font-size:12.5px;">
+              Tip: Hover anything to get the <b>green border</b> ✨
+            </p>
+          </div>
+
+          <div class="card" style="margin-top:12px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+              <div style="font-weight:600;color:var(--olive)">Today summary</div>
+              <span class="badge">🗓 <span id="todayKey">—</span></span>
+            </div>
+
+            <div class="kpis" style="margin-top:10px;">
+              <div class="kpi">
+                <div class="t">🍗 Total meals</div>
+                <p class="v" id="sumMeals">0</p>
+                <small>total cost: <b>$<span id="sumCost">0.00</span></b></small>
+              </div>
+              <div class="kpi">
+                <div class="t">💩 Total poops</div>
+                <p class="v" id="sumPoops">0</p>
+                <small>city status: <b id="cityStatus">Safe</b></small>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:12px;">
+            <div style="font-weight:600;color:var(--olive);margin-bottom:8px;">Logs (latest first)</div>
+            <div class="list" id="logList"></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <div style="margin-top:14px; color:rgba(90,95,80,.9); font-size:12px; display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+      <span>LOMLA.land • Cat Kingdom</span>
+      <span style="color:var(--muted)">Next: add more cats 👀</span>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <span class="dot"></span>
+    <div style="min-width:0">
+      <div id="toastTitle" style="font-weight:600;color:var(--olive)">—</div>
+      <small id="toastMsg">—</small>
+    </div>
+  </div>
+
+  <script>
+    /* ==========================
+       STORAGE + HELPERS
+       ========================== */
+    const SETTINGS_KEY = "lomla_catkingdom_settings_v1";
+    const STATE_KEY    = "lomla_catkingdom_state_v1";
+    const LOG_KEY      = "lomla_catkingdom_logs_v1";
+
+    const DEFAULT_SETTINGS = {
+      mealPrice: 1.25,
+      stinkMult: 2
+    };
+
+    const DEFAULT_STATE = {
+      lia:    { meals:0, poops:0, cost:0, stink:0, mood:"Chill",   chonk:0, lastDay:"" },
+      husisa: { meals:0, poops:0, cost:0, stink:0, mood:"Serious", chonk:0, lastDay:"" }
+    };
+
+    function readJSON(key, fallback){
+      try{
+        const raw = localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : fallback;
+      }catch{
+        return fallback;
+      }
+    }
+    function writeJSON(key, val){
+      localStorage.setItem(key, JSON.stringify(val));
+    }
+
+    function todayKey(){
+      const d = new Date();
+      const y = d.getFullYear();
+      const m = String(d.getMonth()+1).padStart(2,"0");
+      const dd = String(d.getDate()).padStart(2,"0");
+      return `${y}-${m}-${dd}`;
+    }
+
+    function clamp(n, a, b){ return Math.max(a, Math.min(b, n)); }
+    function money(n){ return Number(n||0).toFixed(2); }
+
+    function toast(title, msg){
+      document.getElementById("toastTitle").textContent = title;
+      document.getElementById("toastMsg").textContent = msg;
+      const el = document.getElementById("toast");
+      el.classList.add("show");
+      clearTimeout(window.__t);
+      window.__t = setTimeout(() => el.classList.remove("show"), 2400);
+    }
+
+    /* ==========================
+       RANDOM FUN
+       ========================== */
+    const FUN_FEED = [
+      "approved by the royal committee 👑",
+      "served with extra kisses 🤍",
+      "michelin 3-star kibble ✨",
+      "with a side of drama 😌",
+      "crispy crunch deluxe 🍗"
+    ];
+    const FUN_POOP = [
+      "a tragic event for the kingdom 💀",
+      "evacuate immediately 🚨",
+      "the litter box is crying 😭",
+      "legacy has been written 📜",
+      "a strong statement 💩"
+    ];
+    const FUN_PLAY = [
+      "zoomies unlocked ⚡",
+      "caught the invisible ghost 👻",
+      "destroyed a yarn empire 🧶",
+      "sang a tiny opera 🎵",
+      "fell asleep mid-attack 😴"
+    ];
+
+    function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+    function moodByActions(meals, poops){
+      if(poops >= 5) return "Chaotic";
+      if(meals >= 6) return "Sleepy";
+      if(meals >= 3) return "Happy";
+      if(poops >= 2) return "Suspicious";
+      return "Chill";
+    }
+
+    /* ==========================
+       INIT
+       ========================== */
+    let settings = readJSON(SETTINGS_KEY, DEFAULT_SETTINGS);
+    let state    = readJSON(STATE_KEY, DEFAULT_STATE);
+    let logs     = readJSON(LOG_KEY, []);
+
+    const TODAY = todayKey();
+    document.getElementById("todayKey").textContent = TODAY;
+
+    // auto reset daily totals per cat
+    for(const k of ["lia","husisa"]){
+      if(state[k].lastDay !== TODAY){
+        state[k].meals = 0;
+        state[k].poops = 0;
+        state[k].cost  = 0;
+        state[k].stink = 0;
+        state[k].chonk = clamp(state[k].chonk - 2, 0, 100); // gets slightly less chonk daily 👀
+        state[k].mood  = (k === "husisa") ? "Serious" : "Chill";
+        state[k].lastDay = TODAY;
+      }
+    }
+    writeJSON(STATE_KEY, state);
+
+    // settings UI
+    const mealPriceEl = document.getElementById("mealPrice");
+    const stinkMultEl = document.getElementById("stinkMult");
+    mealPriceEl.value = settings.mealPrice;
+    stinkMultEl.value = settings.stinkMult;
+
+    document.getElementById("saveSettings").addEventListener("click", () => {
+      const mp = Number(mealPriceEl.value);
+      const sm = Number(stinkMultEl.value);
+      settings.mealPrice = isFinite(mp) && mp >= 0 ? mp : DEFAULT_SETTINGS.mealPrice;
+      settings.stinkMult = isFinite(sm) ? clamp(sm, 1, 5) : DEFAULT_SETTINGS.stinkMult;
+      writeJSON(SETTINGS_KEY, settings);
+      toast("Settings", "Saved ✓");
+      renderAll();
+    });
+
+    document.getElementById("resetAll").addEventListener("click", () => {
+      localStorage.removeItem(SETTINGS_KEY);
+      localStorage.removeItem(STATE_KEY);
+      localStorage.removeItem(LOG_KEY);
+      toast("Reset", "Everything reset ✓ (refresh page)");
+      setTimeout(() => location.reload(), 600);
+    });
+
+    /* ==========================
+       LOGS
+       ========================== */
+    function addLog(cat, text){
+      const entry = {
+        ts: Date.now(),
+        cat,
+        text
+      };
+      logs.unshift(entry);
+      logs = logs.slice(0, 80);
+      writeJSON(LOG_KEY, logs);
+      renderLogs();
+    }
+
+    function fmtTime(ts){
+      const d = new Date(ts);
+      return d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    }
+
+    function renderLogs(){
+      const list = document.getElementById("logList");
+      if(!logs.length){
+        list.innerHTML = `<div class="logItem">No logs yet… do something silly 🐾</div>`;
+        return;
+      }
+      list.innerHTML = logs.map(l => `
+        <div class="logItem">
+          <b>${l.cat.toUpperCase()}</b> • ${fmtTime(l.ts)}<br>
+          ${l.text}
+        </div>
+      `).join("");
+    }
+
+    /* ==========================
+       RENDER KPIs
+       ========================== */
+    function setCatUI(catKey){
+      const root = document.querySelector(`.catCard[data-cat="${catKey}"]`);
+      const s = state[catKey];
+
+      root.querySelector('[data-kpi="meals"]').textContent = s.meals;
+      root.querySelector('[data-kpi="poops"]').textContent = s.poops;
+      root.querySelector('[data-kpi="cost"]').textContent  = money(s.cost);
+      root.querySelector('[data-kpi="stink"]').textContent = s.stink;
+      root.querySelector('[data-kpi="mood"]').textContent  = s.mood;
+      root.querySelector('[data-kpi="chonk"]').textContent = s.chonk;
+
+      // little wiggle on name if too many poops
+      const nameEl = document.getElementById(`name-${catKey}`);
+      nameEl.classList.toggle("wiggle", s.poops >= 4);
+    }
+
+    function renderSummary(){
+      const sumMeals = state.lia.meals + state.husisa.meals;
+      const sumPoops = state.lia.poops + state.husisa.poops;
+      const sumCost  = state.lia.cost  + state.husisa.cost;
+
+      document.getElementById("sumMeals").textContent = sumMeals;
+      document.getElementById("sumPoops").textContent = sumPoops;
+      document.getElementById("sumCost").textContent  = money(sumCost);
+
+      const city = document.getElementById("cityStatus");
+      if(sumPoops >= 10) city.textContent = "Apocalypse 💀";
+      else if(sumPoops >= 6) city.textContent = "Danger 🚨";
+      else if(sumPoops >= 3) city.textContent = "Smelly 😭";
+      else city.textContent = "Safe ✨";
+    }
+
+    function renderAll(){
+      setCatUI("lia");
+      setCatUI("husisa");
+      renderSummary();
+      renderLogs();
+    }
+
+    /* ==========================
+       ACTIONS
+       ========================== */
+    function updateMoodAndStink(catKey){
+      const s = state[catKey];
+      s.mood = moodByActions(s.meals, s.poops);
+      s.stink = clamp((s.poops * settings.stinkMult) + Math.floor(s.meals/2), 0, 10);
+      // chonk grows with meals, shrinks slightly with play
+      s.chonk = clamp(s.chonk, 0, 100);
+    }
+
+    function handleAction(catKey, action){
+      const s = state[catKey];
+
+      if(action === "feed"){
+        s.meals += 1;
+        s.cost += settings.mealPrice;
+        s.chonk = clamp(s.chonk + 3, 0, 100);
+        updateMoodAndStink(catKey);
+        addLog(catKey, `🍗 Fed ${pick(FUN_FEED)} (cost +$${money(settings.mealPrice)})`);
+        toast("Feed", `${catKey.toUpperCase()} is eating 🍗`);
+      }
+
+      if(action === "poop"){
+        s.poops += 1;
+        s.chonk = clamp(s.chonk - 1, 0, 100);
+        updateMoodAndStink(catKey);
+        addLog(catKey, `💩 Pooped… ${pick(FUN_POOP)}`);
+        toast("Poop", `${catKey.toUpperCase()} did the thing 💩`);
+      }
+
+      if(action === "play"){
+        // play reduces chonk and increases mood
+        s.chonk = clamp(s.chonk - 4, 0, 100);
+        s.mood = "Zoomies";
+        s.stink = clamp(s.stink - 1, 0, 10);
+        addLog(catKey, `🧶 Played: ${pick(FUN_PLAY)}`);
+        toast("Play", `${catKey.toUpperCase()} zoomies 🧶`);
+      }
+
+      if(action === "random"){
+        const roll = Math.random();
+        if(roll < 0.45) handleAction(catKey, "feed");
+        else if(roll < 0.75) handleAction(catKey, "play");
+        else handleAction(catKey, "poop");
+        return; // already saved in nested calls
+      }
+
+      if(action === "reset"){
+        s.meals = 0;
+        s.poops = 0;
+        s.cost = 0;
+        s.stink = 0;
+        s.mood = (catKey === "husisa") ? "Serious" : "Chill";
+        addLog(catKey, `🧹 Reset today's stats. Fresh start ✨`);
+        toast("Reset", `${catKey.toUpperCase()} reset ✓`);
+      }
+
+      writeJSON(STATE_KEY, state);
+      renderAll();
+    }
+
+    // bind buttons
+    document.querySelectorAll(".catCard").forEach(card => {
+      const catKey = card.dataset.cat;
+      card.querySelectorAll("[data-action]").forEach(btn => {
+        btn.addEventListener("click", () => handleAction(catKey, btn.dataset.action));
+      });
+    });
+
+    // first render
+    renderAll();
+  </script>
+</body>
+</html>

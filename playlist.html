@@ -1,0 +1,823 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LOMLA.land — Playlist</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --olive:#6B7A4F;
+      --olive-soft:#A8B18F;
+      --cream:#FAF7F2;
+      --blush:#E6CFC2;
+      --gold:#C8A24A;
+
+      --text:#1f2418;
+      --muted:#5a5f50;
+
+      --border:1px solid rgba(107,122,79,.18);
+      --shadow:0 10px 30px rgba(0,0,0,.06);
+      --shadow-sm:0 6px 18px rgba(0,0,0,.05);
+
+      --r-lg:18px;
+      --r-md:14px;
+
+      --bg-btn: rgba(250,247,242,.75);
+      --bg-btn2: rgba(250,247,242,.78);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+      color:var(--text);
+      background:#8f9b75; /* olive base */
+      overflow-x:hidden;
+    }
+
+    /* ✅ الخلفية (بدون قص + بدون فراغات) */
+   /* ✅ الخلفية تغطي الشاشة كاملة */
+.bg-wall{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  overflow:hidden;
+}
+
+/* طبقة واحدة: cover = تغطي الشاشة بالكامل */
+.bg-wall::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: url("pics/spotify1.gif") no-repeat center / cover;
+  transform: scale(1.18); /* 👈 كبرتها */
+}
+
+
+/* احذف/عطل طبقة ::after القديمة */
+.bg-wall::after{
+  content:none;
+}
+
+
+    a{color:inherit;text-decoration:none}
+
+    .wrap{
+      max-width: 760px; /* خليها 820 اذا بدك أعرض */
+      margin: 0 auto;
+      padding: 24px 18px 60px;
+      position:relative;
+      z-index:1;
+    }
+
+    /* Sticky topbar */
+    .topbar{
+      position:sticky; top:0; z-index:30;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding:10px 0 14px;
+      margin:0 0 10px;
+      background: rgba(250,247,242,.35);
+      border-bottom: 1px solid rgba(107,122,79,.10);
+    }
+    .topbarInner{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      max-width:1040px;margin:0 auto;
+      padding:0 18px;
+    }
+
+    .brand{
+      display:flex;align-items:baseline;gap:10px;
+      font-family:"Playfair Display",serif; letter-spacing:.4px;
+    }
+    .brand .logo{font-size:26px;font-weight:600;color:var(--olive)}
+    .brand .tag{
+      font-family:Inter,sans-serif;
+      font-size:12px;color:var(--muted);
+      padding:6px 10px;border-radius:999px;
+      border:var(--border);
+      background:rgba(250,247,242,.55);
+      backdrop-filter: blur(6px);
+      white-space:nowrap;
+    }
+
+    .actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap; justify-content:flex-end}
+
+    .btn{
+      border:var(--border);
+      background:var(--bg-btn);
+      color:var(--olive);
+      padding:10px 14px;border-radius:999px;
+      box-shadow:var(--shadow-sm);
+      cursor:pointer;
+      display:inline-flex;align-items:center;gap:8px;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+      user-select:none;
+      font-weight:500;
+      line-height:1;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .btn:hover{transform: translateY(-1px); box-shadow: var(--shadow);}
+
+    /* ✅ Ultra transparent glass panel */
+    .panel{
+      background: rgba(255,255,255,0.14);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 18px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.10);
+      padding: 18px;
+    }
+
+    h1{
+      margin:0 0 8px;
+      font-family:"Playfair Display",serif;
+      font-size:30px;
+      line-height:1.18;
+      color:var(--olive);
+      letter-spacing:.2px;
+      text-shadow: 0 2px 10px rgba(255,255,255,.35);
+    }
+    p{margin:0;color:rgba(31,36,24,.80);line-height:1.8;font-size:14.5px}
+
+    .modeRow{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:12px;}
+    .modeBtn{
+      border:var(--border);
+      background:rgba(255,255,255,.22);
+      color:var(--olive);
+      padding:9px 12px;border-radius:999px;
+      cursor:pointer;
+      box-shadow:var(--shadow-sm);
+      display:inline-flex;align-items:center;gap:8px;
+      font-size:13px;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+      user-select:none;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .modeBtn:hover{transform: translateY(-1px); box-shadow: var(--shadow);}
+
+    .modeBtn.active{background: rgba(107,122,79,.16); border:1px solid rgba(107,122,79,.35);}
+
+    .grid{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:14px;
+    }
+
+    .frame{
+      border-radius: 18px;
+      border: var(--border);
+      background: rgba(255,255,255,0.18);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: var(--shadow-sm);
+      overflow:hidden;
+    }
+    .frameHeader{
+      padding:12px 14px;
+      border-bottom:1px solid rgba(107,122,79,.12);
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      flex-wrap:wrap;
+    }
+    .chip{
+      font-size:12px;color:rgba(31,36,24,.75);
+      border: var(--border);
+      background: rgba(255,255,255,.18);
+      padding:6px 10px;border-radius:999px;white-space:nowrap;
+    }
+    .frameRight{display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:flex-end;}
+    iframe{display:block;width:100%;height:520px;border:0}
+    @media (max-width: 980px){ iframe{height:480px;} }
+
+    .noteBox{
+      border-radius: var(--r-md);
+      border: 1px solid rgba(255,255,255,.22);
+      background: rgba(255,255,255,.16);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding:14px;
+      line-height:1.9;
+      color:rgba(31,36,24,.82);
+    }
+
+    .notesPanel{
+      border-radius: 18px;
+      border: var(--border);
+      background: rgba(255,255,255,0.16);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: var(--shadow-sm);
+      padding:14px;
+    }
+
+    .notesTop{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px;}
+    .notesTop b{color: var(--olive); font-family:"Playfair Display",serif; font-size:18px; letter-spacing:.2px;}
+    .fieldRow{display:grid;grid-template-columns: 1fr;gap:10px;margin-top:10px;}
+
+    .input, .textarea, .select{
+      width:100%;
+      border:1px solid rgba(107,122,79,.22);
+      background: rgba(255,255,255,.52);
+      border-radius: 14px;
+      padding: 10px 12px;
+      outline:none;
+      font-size:14px;
+      color: var(--text);
+      box-shadow: var(--shadow-sm);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      font-family: Inter, system-ui, sans-serif;
+    }
+    .textarea{min-height:92px; resize: vertical;}
+    .input:focus, .textarea:focus, .select:focus{
+      border-color: rgba(107,122,79,.45);
+      box-shadow: 0 10px 30px rgba(0,0,0,.06);
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.62);
+    }
+
+    .row2{display:grid;grid-template-columns: 1fr 1fr;gap:10px;}
+    @media (max-width: 520px){ .row2{grid-template-columns:1fr;} }
+
+    .ratingRow{
+      display:flex; gap:8px; flex-wrap:wrap; align-items:center;
+      border:1px solid rgba(107,122,79,.16);
+      background: rgba(255,255,255,.44);
+      border-radius: 14px;
+      padding: 10px 12px;
+      box-shadow: var(--shadow-sm);
+    }
+    .stars{display:flex; gap:6px; align-items:center}
+    .star{
+      cursor:pointer;
+      border:1px solid rgba(107,122,79,.18);
+      background: rgba(255,255,255,.55);
+      border-radius: 999px;
+      padding: 7px 9px;
+      font-size:14px;
+      user-select:none;
+      transition: transform .18s ease, box-shadow .18s ease;
+      box-shadow: var(--shadow-sm);
+    }
+    .star:hover{transform: translateY(-1px); box-shadow: var(--shadow);}
+    .star.on{border-color: rgba(200,162,74,.55); background: rgba(200,162,74,.12);}
+
+    .notesActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;align-items:center;justify-content:space-between;}
+
+    .miniBtn{
+      border:var(--border);
+      background: rgba(255,255,255,.55);
+      color:var(--olive);
+      border-radius:999px;
+      padding:8px 10px;
+      cursor:pointer;
+      font-size:12.5px;
+      box-shadow:var(--shadow-sm);
+      user-select:none;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      transition: transform .18s ease, box-shadow .18s ease;
+      line-height:1;
+    }
+    .miniBtn:hover{transform: translateY(-1px); box-shadow: var(--shadow);}
+
+    .meta{font-size:12px;color: rgba(31,36,24,.70);margin-top:6px;}
+
+    .searchRow{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px;}
+    .searchRow .input{border-radius:999px;padding:10px 14px;flex:1 1 220px;}
+
+    .list{margin-top:12px;display:flex;flex-direction:column;gap:10px;}
+    .item{
+      border:var(--border);
+      background: rgba(255,255,255,.50);
+      border-radius: 16px;
+      padding: 12px;
+      box-shadow: var(--shadow-sm);
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      justify-content:space-between;
+    }
+    .item b{color:var(--olive); font-size:13px}
+    .item p{margin:8px 0 0;font-size:13px;color: rgba(31,36,24,.72);line-height:1.8;white-space:pre-wrap;word-break:break-word;}
+    .badgeRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .badge{font-size:12px;color: rgba(31,36,24,.70);border: var(--border);background: rgba(255,255,255,.35);padding:6px 10px;border-radius:999px;white-space:nowrap;}
+    .pin{border-color: rgba(200,162,74,.45);background: rgba(200,162,74,.10);color: #5a4a20;}
+
+    .rightBtns{display:flex;flex-direction:column;gap:8px;align-items:flex-end;flex:0 0 auto;}
+
+    .toast{
+      position: fixed;
+      left: 18px;
+      bottom: 18px;
+      background: rgba(255,255,255,.72);
+      border: var(--border);
+      box-shadow: var(--shadow);
+      border-radius: 999px;
+      padding: 10px 14px;
+      display:flex; align-items:center; gap:10px;
+      opacity:0;
+      transform: translateY(8px);
+      transition: opacity .25s ease, transform .25s ease;
+      pointer-events:none;
+      max-width: calc(100vw - 36px);
+      z-index:50;
+    }
+    .toast.show{opacity:1; transform: translateY(0);}
+    .dot{width:8px;height:8px;border-radius:50%;background: var(--gold);box-shadow: 0 0 0 3px rgba(200,162,74,.18);flex:0 0 auto;}
+    .toast small{color:rgba(31,36,24,.70)}
+  </style>
+</head>
+
+<body>
+  <div class="bg-wall"></div>
+
+  <header class="topbar">
+    <div class="topbarInner">
+      <div class="brand">
+        <div class="logo">LOMLA.land</div>
+        <div class="tag">Cute • Playlist</div>
+      </div>
+
+      <div class="actions">
+        <a class="btn" href="index.html">← Home</a>
+        <a class="btn" href="gallery.html">📷 Gallery</a>
+        <a class="btn" href="secret.html">🔐 Secret</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <section class="panel">
+      <h1>🎵 Playlist</h1>
+      <p>
+        Choose a mode — and write your own notes for songs (saved on this device).<br>
+        Shortcuts: <b>/</b> search • <b>Ctrl/⌘ + Enter</b> save • <b>Esc</b> cancel edit
+      </p>
+
+      <div class="modeRow" role="tablist" aria-label="Playlist modes">
+        <button class="modeBtn active" data-mode="our" type="button">🎧 Spotify</button>
+        <button class="modeBtn" data-mode="taylor" type="button">🪩 Taylor Mode</button>
+        <button class="modeBtn" data-mode="kanye" type="button">🔥 Kanye Mode</button>
+      </div>
+
+      <div class="grid">
+        <div class="frame">
+          <div class="frameHeader">
+            <div>
+              <div id="frameTitle" style="font-weight:600;color:var(--olive)">—</div>
+              <div class="meta" id="frameMeta">—</div>
+            </div>
+            <div class="frameRight">
+              <span class="chip" id="frameChip">—</span>
+              <a class="miniBtn" id="openSpotifyBtn" href="#" target="_blank" rel="noopener">↗ Open in Spotify</a>
+            </div>
+          </div>
+
+          <iframe
+            id="spotifyEmbed"
+            style="border-radius:12px"
+            src=""
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy">
+          </iframe>
+        </div>
+
+        <div>
+          <div class="noteBox">
+            <b style="color:var(--olive)">Notes for songs 🤍</b><br>
+            اكتبوا اسم الأغنية + ملاحظة… وتنحفظ. وفيك تضيف ⭐ + Tags + Pin.
+          </div>
+
+          <div class="notesPanel" style="margin-top:12px">
+            <div class="notesTop">
+              <div>
+                <b id="notesTitle">Notes — —</b>
+                <div class="meta" id="notesHint">Saved locally on your device (this browser).</div>
+              </div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+                <button class="miniBtn" id="clearModeNotesBtn" type="button">🧹 Clear this mode</button>
+              </div>
+            </div>
+
+            <div class="fieldRow">
+              <input class="input" id="songInput" placeholder="Song title (example: Cardigan)" />
+
+              <div class="row2">
+                <input class="input" id="tagsInput" placeholder="Tags (comma separated) e.g. sad, winter, date" />
+                <select class="select" id="sortSelect" title="Sort notes">
+                  <option value="pinned">Sort: Pinned → New</option>
+                  <option value="new">Sort: Newest</option>
+                  <option value="old">Sort: Oldest</option>
+                  <option value="rating">Sort: Rating</option>
+                  <option value="title">Sort: Title A→Z</option>
+                </select>
+              </div>
+
+              <div class="ratingRow">
+                <div style="font-weight:600;color:var(--olive)">Rating:</div>
+                <div class="stars" id="stars"></div>
+                <button class="miniBtn" id="pinBtn" type="button">📌 Pin</button>
+                <span class="meta" id="pinState">not pinned</span>
+              </div>
+
+              <textarea class="textarea" id="noteInput" placeholder="Write your note… (memory, vibe, lyrics, why you love it)"></textarea>
+            </div>
+
+            <div class="notesActions">
+              <div style="display:flex;gap:10px;flex-wrap:wrap">
+                <button class="miniBtn" id="addNoteBtn" type="button">➕ Add Note</button>
+                <button class="miniBtn" id="cancelEditBtn" type="button" style="display:none">✖ Cancel Edit</button>
+              </div>
+              <div class="meta" id="saveState">—</div>
+            </div>
+
+            <div class="searchRow">
+              <input class="input" id="searchInput" placeholder="Search notes… (song / note / tags)" />
+              <select class="select" id="ratingFilter" style="border-radius:999px;padding:10px 14px;flex:0 0 auto;width:auto">
+                <option value="all">⭐ Filter: All</option>
+                <option value="5">⭐ 5</option>
+                <option value="4">⭐ 4+</option>
+                <option value="3">⭐ 3+</option>
+                <option value="2">⭐ 2+</option>
+                <option value="1">⭐ 1+</option>
+                <option value="0">⭐ 0</option>
+              </select>
+              <button class="miniBtn" id="exportBtn" type="button">⬇ Export</button>
+              <button class="miniBtn" id="importBtn" type="button">⬆ Import</button>
+              <input type="file" id="importFile" accept="application/json" style="display:none" />
+            </div>
+
+            <div class="list" id="notesList"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <span class="dot"></span>
+    <div style="min-width:0">
+      <div id="toastTitle" style="font-weight:600;color:var(--olive)">—</div>
+      <small id="toastMsg">—</small>
+    </div>
+  </div>
+
+  <script>
+    const OUR_PLAYLIST_ID    = "59osxUFp8XgsS74lfkAGmx";
+    const TAYLOR_PLAYLIST_ID = "37i9dQZF1DX5KpP2LN299J";
+    const KANYE_PLAYLIST_ID  = "37i9dQZF1DZ06evO3nMr04";
+
+    const MODES = {
+      our:   { title:"Spotify — Our Playlist", chip:"soft • romantic • calm", playlistId:OUR_PLAYLIST_ID, spotifyUrl:`https://open.spotify.com/playlist/${OUR_PLAYLIST_ID}` },
+      taylor:{ title:"Taylor Mode — Taylor Swift only", chip:"taylor only • vibes • lyrics", playlistId:TAYLOR_PLAYLIST_ID, spotifyUrl:`https://open.spotify.com/playlist/${TAYLOR_PLAYLIST_ID}` },
+      kanye: { title:"Kanye Mode — Kanye West only", chip:"kanye only • energy • classics", playlistId:KANYE_PLAYLIST_ID, spotifyUrl:`https://open.spotify.com/playlist/${KANYE_PLAYLIST_ID}` }
+    };
+
+    const modeBtns = Array.from(document.querySelectorAll(".modeBtn"));
+    const embed = document.getElementById("spotifyEmbed");
+    const frameTitle = document.getElementById("frameTitle");
+    const frameChip = document.getElementById("frameChip");
+    const frameMeta = document.getElementById("frameMeta");
+    const openSpotifyBtn = document.getElementById("openSpotifyBtn");
+
+    const notesTitle = document.getElementById("notesTitle");
+    const notesHint = document.getElementById("notesHint");
+    const clearModeNotesBtn = document.getElementById("clearModeNotesBtn");
+
+    const songInput = document.getElementById("songInput");
+    const tagsInput = document.getElementById("tagsInput");
+    const noteInput = document.getElementById("noteInput");
+    const addNoteBtn = document.getElementById("addNoteBtn");
+    const cancelEditBtn = document.getElementById("cancelEditBtn");
+    const notesList = document.getElementById("notesList");
+    const saveState = document.getElementById("saveState");
+
+    const searchInput = document.getElementById("searchInput");
+    const exportBtn = document.getElementById("exportBtn");
+    const importBtn = document.getElementById("importBtn");
+    const importFile = document.getElementById("importFile");
+    const sortSelect = document.getElementById("sortSelect");
+    const ratingFilter = document.getElementById("ratingFilter");
+
+    const starsEl = document.getElementById("stars");
+    const pinBtn = document.getElementById("pinBtn");
+    const pinState = document.getElementById("pinState");
+
+    const toastEl = document.getElementById("toast");
+    const toastTitle = document.getElementById("toastTitle");
+    const toastMsg = document.getElementById("toastMsg");
+
+    function toast(title, msg){
+      toastTitle.textContent = title;
+      toastMsg.textContent = msg;
+      toastEl.classList.add("show");
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => toastEl.classList.remove("show"), 2400);
+    }
+
+    const MODE_KEY = "lomla_playlist_mode";
+    const NOTES_KEY = "lomla_song_notes_v2";
+    const SORT_KEY = "lomla_notes_sort";
+    const FILTER_KEY = "lomla_notes_rating_filter";
+
+    function readJSON(key, fallback){
+      try{ const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : fallback; }
+      catch{ return fallback; }
+    }
+    function writeJSON(key, val){ localStorage.setItem(key, JSON.stringify(val)); }
+
+    function getAllNotes(){ return readJSON(NOTES_KEY, { our:[], taylor:[], kanye:[] }); }
+    function setAllNotes(obj){ writeJSON(NOTES_KEY, obj); }
+    function getModeNotes(mode){ const all = getAllNotes(); return Array.isArray(all[mode]) ? all[mode] : []; }
+    function setModeNotes(mode, list){ const all = getAllNotes(); all[mode] = list; setAllNotes(all); }
+
+    function uid(){ return Math.random().toString(16).slice(2) + Date.now().toString(16); }
+    function escapeHTML(str){
+      return String(str).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;").replaceAll("'","&#039;");
+    }
+    function fmtDate(ts){ return new Date(ts).toLocaleString(); }
+    function parseTags(raw){ return (raw||"").split(",").map(s=>s.trim()).filter(Boolean).slice(0,12); }
+
+    let currentRating = 0;
+    let currentPinned = false;
+
+    function renderStars(){
+      starsEl.innerHTML = "";
+      for(let i=1;i<=5;i++){
+        const b = document.createElement("button");
+        b.type="button";
+        b.className="star"+(i<=currentRating?" on":"");
+        b.textContent="★";
+        b.onclick=()=>{ currentRating = (currentRating===i?0:i); renderStars(); };
+        starsEl.appendChild(b);
+      }
+    }
+    function setPinned(on){
+      currentPinned = !!on;
+      pinBtn.textContent = currentPinned ? "📌 Pinned" : "📌 Pin";
+      pinState.textContent = currentPinned ? "pinned" : "not pinned";
+    }
+
+    let currentMode = localStorage.getItem(MODE_KEY) || "our";
+    let editingId = null;
+
+    function setEmbedByMode(mode){
+      const cfg = MODES[mode] || MODES.our;
+      frameTitle.textContent = cfg.title;
+      frameChip.textContent = cfg.chip;
+      frameMeta.textContent = `Playlist ID: ${cfg.playlistId}`;
+      openSpotifyBtn.href = cfg.spotifyUrl;
+      embed.src = `https://open.spotify.com/embed/playlist/${cfg.playlistId}`;
+    }
+
+    function setMode(mode){
+      currentMode = mode;
+      localStorage.setItem(MODE_KEY, mode);
+      modeBtns.forEach(b => b.classList.toggle("active", b.dataset.mode === mode));
+
+      const pretty = mode==="our"?"Spotify":mode==="taylor"?"Taylor Mode":"Kanye Mode";
+      notesTitle.textContent = `Notes — ${pretty}`;
+      notesHint.textContent = "Saved locally on your device (this browser).";
+
+      editingId=null;
+      cancelEditBtn.style.display="none";
+      addNoteBtn.textContent="➕ Add Note";
+      songInput.value=""; tagsInput.value=""; noteInput.value=""; searchInput.value="";
+      currentRating=0; setPinned(false); renderStars();
+
+      setEmbedByMode(mode);
+      renderNotes();
+      saveState.textContent="—";
+      toast("Mode", `${pretty} selected`);
+    }
+
+    modeBtns.forEach(btn => btn.addEventListener("click", () => setMode(btn.dataset.mode)));
+
+    function getSort(){ return localStorage.getItem(SORT_KEY) || "pinned"; }
+    function setSort(v){ localStorage.setItem(SORT_KEY, v); }
+    function getRatingFilter(){ return localStorage.getItem(FILTER_KEY) || "all"; }
+    function setRatingFilter(v){ localStorage.setItem(FILTER_KEY, v); }
+
+    sortSelect.value = getSort();
+    ratingFilter.value = getRatingFilter();
+    sortSelect.addEventListener("change", () => { setSort(sortSelect.value); renderNotes(); });
+    ratingFilter.addEventListener("change", () => { setRatingFilter(ratingFilter.value); renderNotes(); });
+    searchInput.addEventListener("input", renderNotes);
+
+    function applyFilter(list){
+      const q=(searchInput.value||"").trim().toLowerCase();
+      const rf=getRatingFilter();
+      let out=list;
+
+      if(rf!=="all"){
+        const n=Number(rf);
+        out=out.filter(x=>{
+          const r=Number(x.rating||0);
+          if(n===0) return r===0;
+          return r>=n;
+        });
+      }
+      if(q){
+        out=out.filter(x =>
+          (x.song||"").toLowerCase().includes(q) ||
+          (x.note||"").toLowerCase().includes(q) ||
+          (Array.isArray(x.tags)?x.tags.join(", ").toLowerCase():"").includes(q)
+        );
+      }
+
+      const s=getSort();
+      const copy=[...out];
+      const byTsDesc=(a,b)=>(b.ts||0)-(a.ts||0);
+      const byTsAsc =(a,b)=>(a.ts||0)-(b.ts||0);
+      const byRating=(a,b)=>(Number(b.rating||0)-Number(a.rating||0))||byTsDesc(a,b);
+      const byTitle =(a,b)=>String(a.song||"").localeCompare(String(b.song||""))||byTsDesc(a,b);
+
+      if(s==="new") copy.sort(byTsDesc);
+      else if(s==="old") copy.sort(byTsAsc);
+      else if(s==="rating") copy.sort(byRating);
+      else if(s==="title") copy.sort(byTitle);
+      else{
+        copy.sort((a,b)=>{
+          const ap=a.pinned?1:0, bp=b.pinned?1:0;
+          if(bp!==ap) return bp-ap;
+          return byTsDesc(a,b);
+        });
+      }
+      return copy;
+    }
+
+    function renderNotes(){
+      const list=getModeNotes(currentMode);
+      const filtered=applyFilter(list);
+      notesList.innerHTML="";
+
+      if(filtered.length===0){
+        notesList.innerHTML = `<div class="noteBox" style="margin:0">No notes here (or filters are hiding them). Add your first note 🤍</div>`;
+        return;
+      }
+
+      filtered.forEach(item=>{
+        const row=document.createElement("div");
+        row.className="item";
+        const stars="★".repeat(Number(item.rating||0))+"☆".repeat(5-Number(item.rating||0));
+        const tags=Array.isArray(item.tags)?item.tags:[];
+        row.innerHTML = `
+          <div style="min-width:0">
+            <b>${escapeHTML(item.song || "Untitled song")}</b>
+            <div class="meta">${item.pinned ? "📌 Pinned • " : ""}${escapeHTML(stars)} • Saved: ${escapeHTML(fmtDate(item.ts))}</div>
+            <div class="badgeRow">
+              ${item.pinned ? `<span class="badge pin">Pinned</span>` : ``}
+              ${tags.map(t => `<span class="badge">${escapeHTML(t)}</span>`).join("")}
+            </div>
+            <p>${escapeHTML(item.note || "")}</p>
+          </div>
+          <div class="rightBtns">
+            <button class="miniBtn" data-pin="1">${item.pinned ? "Unpin" : "📌 Pin"}</button>
+            <button class="miniBtn" data-edit="1">✏ Edit</button>
+            <button class="miniBtn" data-del="1">🗑 Delete</button>
+          </div>
+        `;
+
+        row.querySelector('[data-pin="1"]').onclick = () => {
+          const all=getModeNotes(currentMode);
+          const idx=all.findIndex(x=>x.id===item.id);
+          if(idx>=0){
+            all[idx]={...all[idx], pinned:!all[idx].pinned, ts:all[idx].ts||Date.now()};
+            setModeNotes(currentMode, all);
+            toast("Pinned", all[idx].pinned ? "Pinned ✓" : "Unpinned ✓");
+            renderNotes();
+          }
+        };
+
+        row.querySelector('[data-edit="1"]').onclick = () => {
+          editingId=item.id;
+          songInput.value=item.song||"";
+          tagsInput.value=(Array.isArray(item.tags)?item.tags.join(", "):"");
+          noteInput.value=item.note||"";
+          currentRating=Number(item.rating||0);
+          setPinned(!!item.pinned);
+          renderStars();
+          cancelEditBtn.style.display="inline-flex";
+          addNoteBtn.textContent="💾 Save Edit";
+          saveState.textContent="Editing…";
+          toast("Edit","Editing note…");
+          songInput.focus();
+        };
+
+        row.querySelector('[data-del="1"]').onclick = () => {
+          const next=getModeNotes(currentMode).filter(x=>x.id!==item.id);
+          setModeNotes(currentMode, next);
+          if(editingId===item.id){
+            editingId=null;
+            cancelEditBtn.style.display="none";
+            addNoteBtn.textContent="➕ Add Note";
+            songInput.value=""; tagsInput.value=""; noteInput.value="";
+            currentRating=0; setPinned(false); renderStars();
+          }
+          saveState.textContent="Deleted ✓";
+          toast("Deleted","Note removed");
+          renderNotes();
+          setTimeout(()=>saveState.textContent="—", 900);
+        };
+
+        notesList.appendChild(row);
+      });
+    }
+
+    pinBtn.addEventListener("click", () => setPinned(!currentPinned));
+
+    function saveNote(){
+      const song=(songInput.value||"").trim();
+      const note=(noteInput.value||"").trim();
+      const tags=parseTags(tagsInput.value);
+
+      if(!song && !note){
+        saveState.textContent="Write something first 🙂";
+        toast("Oops","Write song or note first");
+        setTimeout(()=>saveState.textContent="—", 1000);
+        return;
+      }
+
+      const list=getModeNotes(currentMode);
+      if(editingId){
+        const idx=list.findIndex(x=>x.id===editingId);
+        if(idx>=0){
+          list[idx]={...list[idx], song:song||list[idx].song, note, tags, rating:currentRating, pinned:currentPinned, ts:Date.now()};
+          setModeNotes(currentMode, list);
+          saveState.textContent="Saved edit ✓";
+          toast("Saved","Edit saved ✓");
+        }
+        editingId=null;
+        cancelEditBtn.style.display="none";
+        addNoteBtn.textContent="➕ Add Note";
+      }else{
+        list.unshift({ id:uid(), song:song||"Untitled song", note, tags, rating:currentRating, pinned:currentPinned, ts:Date.now() });
+        setModeNotes(currentMode, list);
+        saveState.textContent="Added ✓";
+        toast("Added","New note saved ✓");
+      }
+
+      songInput.value=""; tagsInput.value=""; noteInput.value="";
+      currentRating=0; setPinned(false); renderStars();
+      renderNotes();
+      setTimeout(()=>saveState.textContent="—", 900);
+    }
+
+    addNoteBtn.addEventListener("click", saveNote);
+
+    cancelEditBtn.addEventListener("click", () => {
+      editingId=null;
+      cancelEditBtn.style.display="none";
+      addNoteBtn.textContent="➕ Add Note";
+      songInput.value=""; tagsInput.value=""; noteInput.value="";
+      currentRating=0; setPinned(false); renderStars();
+      saveState.textContent="Edit canceled";
+      toast("Canceled","Edit canceled");
+      setTimeout(()=>saveState.textContent="—", 900);
+    });
+
+    clearModeNotesBtn.addEventListener("click", () => {
+      setModeNotes(currentMode, []);
+      editingId=null;
+      cancelEditBtn.style.display="none";
+      addNoteBtn.textContent="➕ Add Note";
+      songInput.value=""; tagsInput.value=""; noteInput.value="";
+      currentRating=0; setPinned(false); renderStars();
+      saveState.textContent="Cleared ✓";
+      toast("Cleared","This mode notes cleared");
+      renderNotes();
+      setTimeout(()=>saveState.textContent="—", 900);
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if(e.key === "/" && !e.ctrlKey && !e.metaKey && !e.altKey){
+        const tag=(document.activeElement && document.activeElement.tagName) || "";
+        if(tag!=="INPUT" && tag!=="TEXTAREA"){ e.preventDefault(); searchInput.focus(); }
+      }
+      if(e.key === "Escape" && editingId){ cancelEditBtn.click(); }
+      if((e.ctrlKey || e.metaKey) && e.key === "Enter"){ saveNote(); }
+    });
+
+    renderStars();
+    setPinned(false);
+    setMode(currentMode);
+
+    sortSelect.value = getSort();
+    ratingFilter.value = getRatingFilter();
+  </script>
+</body>
+</html>

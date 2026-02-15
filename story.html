@@ -1,0 +1,1147 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LOMLA.land — Our Story</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --olive:#6B7A4F;
+      --olive-soft:#A8B18F;
+      --cream:#FAF7F2;
+      --blush:#E6CFC2;
+      --gold:#C8A24A;
+
+      --text:#1f2418;
+      --muted:#5a5f50;
+
+      --border:1px solid rgba(107,122,79,.18);
+      --shadow:0 20px 60px rgba(0,0,0,.14);
+      --shadow-sm:0 10px 26px rgba(0,0,0,.10);
+
+      --glass: rgba(250,247,242,.62);
+      --glass2: rgba(250,247,242,.82);
+
+      --r-lg:22px;
+      --r-md:16px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+      color:var(--text);
+      overflow-x:hidden;
+      background:
+        radial-gradient(1200px 520px at 20% 0%, rgba(230,207,194,.20), transparent 60%),
+        radial-gradient(1100px 520px at 85% 10%, rgba(200,162,74,.14), transparent 60%),
+        linear-gradient(180deg, rgba(168,177,143,.14), rgba(250,247,242,1) 58%);
+    }
+    /* ===== Background Video ===== */
+.bgVideo{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:-10;
+  filter:brightness(.7) contrast(1.05);
+}
+
+.bgOverlay{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:linear-gradient(
+    to bottom,
+    rgba(15,19,12,.5),
+    rgba(15,19,12,.3),
+    rgba(15,19,12,.6)
+  );
+  z-index:-9;
+}
+
+
+    a{color:inherit;text-decoration:none}
+
+    /* ===== Progress bar ===== */
+    .progress{
+      position:fixed; top:0; left:0; right:0;
+      height:4px; z-index:9999;
+      background: transparent;
+    }
+    .progress > i{
+      display:block; height:100%;
+      width:0%;
+      background: linear-gradient(90deg, rgba(200,162,74,.95), rgba(107,122,79,.95));
+      box-shadow: 0 0 0 3px rgba(200,162,74,.12);
+    }
+
+    /* ===== Topbar ===== */
+    .topbar{
+      position:sticky; top:0; z-index:60;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      background: rgba(250,247,242,.40);
+      border-bottom: 1px solid rgba(107,122,79,.10);
+      padding:10px 0 14px;
+    }
+    .topbarInner{
+      max-width:1200px;margin:0 auto;padding:0 18px;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+    }
+    .brand{
+      display:flex;align-items:baseline;gap:10px;
+      font-family:"Playfair Display",serif; letter-spacing:.4px;
+    }
+    .brand .logo{font-size:26px;font-weight:600;color:var(--olive)}
+    .brand .tag{
+      font-family:Inter,sans-serif;
+      font-size:12px;color:var(--muted);
+      padding:6px 10px;border-radius:999px;
+      border:var(--border);
+      background:rgba(250,247,242,.55);
+      backdrop-filter: blur(6px);
+      white-space:nowrap;
+    }
+
+    .actions{
+      display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;align-items:center
+    }
+    .btn{
+      border:var(--border);
+      background:rgba(250,247,242,.78);
+      color:var(--olive);
+      padding:10px 14px;border-radius:999px;
+      box-shadow:var(--shadow-sm);
+      cursor:pointer;
+      display:inline-flex;align-items:center;gap:8px;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+      user-select:none;
+      font-weight:500;
+      line-height:1;
+      outline:none;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      box-shadow: var(--shadow);
+      border-color: rgba(107,122,79,.60);
+      background: rgba(250,247,242,.90);
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(107,122,79,.96), rgba(107,122,79,.86));
+      color: var(--cream);
+      border: 1px solid rgba(107,122,79,.55);
+    }
+    .btn.primary:hover{
+      background: linear-gradient(135deg, rgba(107,122,79,1), rgba(107,122,79,.90));
+    }
+
+    /* ===== Layout ===== */
+    .wrap{
+      max-width:1100px;
+      margin:0 auto;
+      padding: 22px 18px 64px;
+    }
+
+    /* ===== Hero ===== */
+    .hero{
+      position:relative;
+      border-radius: 30px;
+      border: 1px solid rgba(107,122,79,.18);
+      background: var(--glass);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      overflow:hidden;
+      padding: 22px;
+      margin-top: 18px;
+    }
+    .hero:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(700px 280px at 20% 5%, rgba(200,162,74,.16), transparent 60%),
+        radial-gradient(760px 300px at 85% 15%, rgba(230,207,194,.18), transparent 60%);
+      pointer-events:none;
+      opacity:.95;
+    }
+
+    .heroGrid{
+      position:relative;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:16px;
+      z-index:1;
+    }
+    @media (max-width: 920px){
+      .heroGrid{grid-template-columns: 1fr;}
+    }
+    .heroTitle{
+      margin:0 0 10px;
+      font-family:"Playfair Display",serif;
+      font-size: 42px;
+      line-height:1.05;
+      color: var(--olive);
+      letter-spacing:.2px;
+    }
+    .heroSub{
+      margin:0;
+      color: rgba(90,95,80,.95);
+      line-height: 1.9;
+      font-size: 14.8px;
+      max-width: 62ch;
+    }
+
+    .quoteCard{
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.22);
+      background: rgba(250,247,242,.56);
+      box-shadow: 0 14px 40px rgba(0,0,0,.08);
+      backdrop-filter: blur(10px);
+      padding: 16px;
+      overflow:hidden;
+      position:relative;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .quoteCard:hover{
+      transform: translateY(-2px);
+      border-color: rgba(107,122,79,.50);
+      box-shadow: 0 24px 70px rgba(0,0,0,.12);
+    }
+    .quoteCard:before{
+      content:"";
+      position:absolute; inset:-80px -70px auto auto;
+      width:220px;height:220px;
+      background: radial-gradient(circle at 30% 30%, rgba(200,162,74,.18), transparent 60%);
+      transform: rotate(18deg);
+      pointer-events:none;
+    }
+    .quote{
+      margin:0;
+      font-family:"Playfair Display",serif;
+      font-size:18px;
+      color:#2a2f22;
+      line-height:1.6;
+    }
+    .quote small{
+      display:block;
+      margin-top:10px;
+      font-family:Inter,sans-serif;
+      color: var(--muted);
+      font-size:12.5px;
+    }
+
+    .chips{
+      margin-top:12px;
+      display:flex; gap:10px; flex-wrap:wrap;
+    }
+    .chip{
+      border-radius:999px;
+      border: var(--border);
+      background: rgba(168,177,143,.12);
+      padding:8px 10px;
+      font-size:12.5px;
+      color: var(--olive);
+      display:inline-flex; align-items:center; gap:8px;
+      box-shadow: var(--shadow-sm);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .chip:hover{
+      transform: translateY(-1px);
+      border-color: rgba(107,122,79,.55);
+      box-shadow: 0 18px 50px rgba(0,0,0,.10);
+    }
+    .dot{
+      width:6px;height:6px;border-radius:999px;
+      background: var(--gold);
+      box-shadow: 0 0 0 3px rgba(200,162,74,.14);
+    }
+
+    /* ===== Section Card ===== */
+    .section{
+      margin-top: 18px;
+      border-radius: 26px;
+      border: 1px solid rgba(107,122,79,.18);
+      background: rgba(250,247,242,.70);
+      box-shadow: 0 14px 40px rgba(0,0,0,.08);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      overflow:hidden;
+    }
+    .sectionHead{
+      padding: 16px 18px;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      border-bottom: 1px solid rgba(107,122,79,.10);
+      background: rgba(250,247,242,.50);
+    }
+    .sectionHead h2{
+      margin:0;
+      font-family:"Playfair Display",serif;
+      font-size:22px;
+      color: var(--olive);
+      letter-spacing:.2px;
+    }
+    .sectionHead p{
+      margin:0;
+      color: var(--muted);
+      font-size:12.5px;
+    }
+    .sectionBody{ padding: 18px; }
+
+    /* ===== Timeline ===== */
+    .timelineWrap{
+      position:relative;
+      padding: 8px 0 0;
+    }
+    .line{
+      position:absolute;
+      left:50%;
+      top:0;
+      bottom:0;
+      width:2px;
+      transform: translateX(-50%);
+      background: linear-gradient(180deg, rgba(107,122,79,.10), rgba(107,122,79,.45), rgba(200,162,74,.18));
+      border-radius:999px;
+    }
+    @media (max-width: 860px){
+      .line{left:18px; transform:none;}
+    }
+
+    .event{
+      position:relative;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+      padding: 14px 0;
+      align-items:stretch;
+    }
+    @media (max-width: 860px){
+      .event{grid-template-columns: 1fr; padding-left: 42px;}
+    }
+
+    .event:nth-child(odd) .card{grid-column:1}
+    .event:nth-child(even) .card{grid-column:2}
+    @media (max-width: 860px){
+      .event:nth-child(odd) .card,
+      .event:nth-child(even) .card{grid-column:1}
+    }
+
+    .pin{
+      position:absolute;
+      left:50%;
+      top: 26px;
+      transform: translateX(-50%);
+      width:14px; height:14px;
+      border-radius: 999px;
+      background: var(--gold);
+      box-shadow: 0 0 0 6px rgba(200,162,74,.14);
+      border: 1px solid rgba(200,162,74,.55);
+      z-index:2;
+    }
+    @media (max-width: 860px){
+      .pin{left:18px; transform:none;}
+    }
+
+    .card{
+      border-radius: 20px;
+      border: 1px solid rgba(107,122,79,.16);
+      background: rgba(250,247,242,.78);
+      box-shadow: var(--shadow-sm);
+      padding: 14px 14px;
+      position:relative;
+      overflow:hidden;
+      min-height: 120px;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      border-color: rgba(107,122,79,.60);
+      box-shadow: 0 24px 70px rgba(0,0,0,.12);
+    }
+
+    /* reveal animation فقط للّي عليهم .reveal */
+    .reveal{
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+    .reveal.show{
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .card:before{
+      content:"";
+      position:absolute; inset:-70px -70px auto auto;
+      width:220px;height:220px;
+      background: radial-gradient(circle at 30% 30%, rgba(168,177,143,.22), transparent 60%);
+      transform: rotate(12deg);
+      pointer-events:none;
+    }
+
+    .meta{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      margin-bottom: 8px;
+    }
+    .badge{
+      font-size:12px;
+      padding:6px 10px;
+      border-radius:999px;
+      border: 1px solid rgba(107,122,79,.18);
+      background: rgba(168,177,143,.12);
+      color: var(--olive);
+      display:inline-flex;align-items:center;gap:8px;
+      white-space:nowrap;
+    }
+    .date{
+      font-size:12px;
+      color: rgba(90,95,80,.9);
+    }
+    .title{
+      margin:0 0 6px;
+      font-weight:700;
+      color:#243019;
+      font-size:15px;
+      letter-spacing:.2px;
+    }
+    .desc{
+      margin:0;
+      color: rgba(90,95,80,.95);
+      font-size:13.5px;
+      line-height:1.85;
+    }
+
+    /* ===== Media ===== */
+    .photoWrap{
+      margin:10px 0;
+      border-radius:16px;
+      overflow:hidden;
+      border: 1px solid rgba(107,122,79,.14);
+      background: rgba(250,247,242,.65);
+      box-shadow: 0 14px 40px rgba(0,0,0,.08);
+    }
+
+    .photoWrap img,
+    .photoWrap video{
+      width:100%;
+      height:220px;
+      object-fit:cover;
+      display:block;
+      transition: transform .45s ease, filter .45s ease;
+    }
+
+    .photoWrap:hover img,
+    .photoWrap:hover video{
+      transform: scale(1.04);
+      filter: saturate(1.05) contrast(1.03);
+    }
+
+    /* ===== Stats row ===== */
+    .stats{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+      margin-top: 12px;
+    }
+    @media (max-width: 900px){ .stats{grid-template-columns: 1fr;} }
+    .stat{
+      border-radius: 18px;
+      border: 1px solid rgba(107,122,79,.16);
+      background: rgba(250,247,242,.78);
+      box-shadow: var(--shadow-sm);
+      padding: 12px;
+      overflow:hidden;
+      position:relative;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .stat:hover{
+      transform: translateY(-2px);
+      border-color: rgba(107,122,79,.55);
+      box-shadow: 0 24px 70px rgba(0,0,0,.12);
+    }
+    .stat b{color: var(--olive)}
+    .stat .k{
+      font-size:12px;color:var(--muted);
+      display:flex;align-items:center;gap:8px;
+      margin-bottom:8px;
+    }
+    .stat .v{
+      margin:0;
+      font-family:"Playfair Display",serif;
+      font-size:26px;
+      color: var(--olive);
+    }
+    .stat .hint{
+      margin-top:6px;
+      font-size:12px;
+      color: var(--muted);
+      line-height:1.6;
+    }
+
+    /* ===== Survived section ===== */
+    .survivedGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    @media (max-width: 900px){ .survivedGrid{grid-template-columns: 1fr;} }
+
+    .tile{
+      border-radius: 18px;
+      border: 1px solid rgba(107,122,79,.16);
+      background: rgba(250,247,242,.78);
+      box-shadow: var(--shadow-sm);
+      padding: 14px;
+      position:relative;
+      overflow:hidden;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .tile:hover{
+      transform: translateY(-2px);
+      border-color: rgba(107,122,79,.55);
+      box-shadow: 0 24px 70px rgba(0,0,0,.12);
+    }
+    .tile:before{
+      content:"";
+      position:absolute; inset:auto -60px -80px auto;
+      width:220px;height:220px;
+      background: radial-gradient(circle at 30% 30%, rgba(230,207,194,.22), transparent 60%);
+      transform: rotate(-16deg);
+      pointer-events:none;
+    }
+    .tile h3{
+      margin:0 0 8px;
+      font-family:"Playfair Display",serif;
+      color: #243019;
+      font-size:16px;
+    }
+    .tile ul{margin:0; padding-left:18px; color: rgba(90,95,80,.95); line-height:1.9; font-size:13.5px;}
+    .tile .final{
+      margin-top:10px;
+      border-radius: 14px;
+      border: 1px solid rgba(200,162,74,.24);
+      background: rgba(200,162,74,.10);
+      padding: 10px 12px;
+      font-size: 13.5px;
+      color:#2a2f22;
+      line-height:1.8;
+    }
+
+    /* ===== Future chapter ===== */
+    .futureGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      align-items:start;
+    }
+    @media (max-width: 900px){ .futureGrid{grid-template-columns: 1fr;} }
+
+    .textarea{
+      width:100%;
+      min-height: 180px;
+      resize: vertical;
+      border-radius: 18px;
+      border: 1px solid rgba(107,122,79,.22);
+      background: rgba(250,247,242,.86);
+      padding: 12px 12px;
+      outline:none;
+      color: var(--text);
+      font-size: 14px;
+      line-height:1.8;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow .18s ease, border-color .18s ease;
+    }
+    .textarea:focus{
+      box-shadow: 0 0 0 4px rgba(107,122,79,.14), var(--shadow);
+      border-color: rgba(107,122,79,.45);
+    }
+
+    .miniRow{
+      display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+      margin-top:10px;
+    }
+    .tiny{
+      font-size:12px;
+      color: var(--muted);
+    }
+
+    /* ===== Footer ===== */
+    .footer{
+      margin-top: 18px;
+      color: rgba(90,95,80,.92);
+      font-size:12px;
+      display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
+      padding: 0 6px;
+    }
+
+    /* ===== Toast ===== */
+    .toast{
+      position: fixed;
+      left: 18px;
+      bottom: 18px;
+      background: rgba(250,247,242,.92);
+      border: var(--border);
+      box-shadow: var(--shadow);
+      border-radius: 999px;
+      padding: 10px 14px;
+      display:flex; align-items:center; gap:10px;
+      opacity:0;
+      transform: translateY(8px);
+      transition: opacity .25s ease, transform .25s ease;
+      pointer-events:none;
+      max-width: calc(100vw - 36px);
+      z-index:100;
+    }
+    .toast.show{opacity:1; transform: translateY(0);}
+    .toast .dot{
+      width:8px;height:8px;border-radius:50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 3px rgba(200,162,74,.18);
+      flex:0 0 auto;
+    }
+    .toast small{color:var(--muted)}
+
+    /* ===== Music button floating ===== */
+    .musicBtn{
+      position:fixed;
+      bottom:22px;
+      right:22px;
+      width:52px;
+      height:52px;
+      border-radius:50%;
+      border:1px solid rgba(107,122,79,.25);
+      background:rgba(250,247,242,.85);
+      backdrop-filter:blur(10px);
+      box-shadow:0 10px 30px rgba(0,0,0,.15);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      font-size:18px;
+      transition:all .28s ease;
+      z-index:999;
+      user-select:none;
+    }
+    .musicBtn:hover{
+      transform:scale(1.08);
+      border-color: rgba(107,122,79,.60);
+      box-shadow:0 18px 55px rgba(0,0,0,.22);
+    }
+    .musicBtn.pulse{
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+    @keyframes pulse{
+      0%,100%{ box-shadow:0 10px 30px rgba(0,0,0,.15), 0 0 0 0 rgba(107,122,79,.20); }
+      50%{ box-shadow:0 16px 45px rgba(0,0,0,.22), 0 0 0 8px rgba(107,122,79,.12); }
+    }
+  </style>
+</head>
+
+<body>
+    <video class="bgVideo" autoplay muted loop playsinline preload="auto">
+  <source src="assets/story.mp4" type="video/mp4">
+</video>
+
+<div class="bgOverlay"></div>
+
+  <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+
+  <header class="topbar">
+    <div class="topbarInner">
+      <div class="brand">
+        <div class="logo">LOMLA.land</div>
+        <div class="tag">Cute  • Our Story</div>
+      </div>
+
+      <div class="actions">
+        <a class="btn" href="index.html">← Home</a>
+        <a class="btn" href="letter.html">💌 Letter</a>
+        <a class="btn" href="cinema.html">🎬 Cinema</a>
+        <a class="btn primary" href="secret.html">🔐 Secret</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- HERO -->
+    <section class="hero" aria-label="Our Story intro">
+      <div class="heroGrid">
+        <div>
+          <h1 class="heroTitle">Our Story</h1>
+          <p class="heroSub">
+            Some stories don’t end… they pause. <br>
+            And then they come back — softer, stronger, and more honest.
+          </p>
+
+          <div class="chips">
+            <span class="chip"><span class="dot"></span> Calm  • Gold</span>
+            <span class="chip"><span class="dot"></span> Private World</span>
+            <span class="chip"><span class="dot"></span> Written for Lomla</span>
+          </div>
+
+          <div class="stats" aria-label="Key counters">
+            <div class="stat">
+              <div class="k">🕰 Since our first chat</div>
+              <p class="v" id="daysChat">—</p>
+              <div class="hint">Since <b>3 May 2021</b></div>
+            </div>
+            <div class="stat">
+              <div class="k">🔁 Since we came back</div>
+              <p class="v" id="daysBack">—</p>
+              <div class="hint">Since <b>12 Dec 2025</b></div>
+            </div>
+            <div class="stat">
+              <div class="k">🎄 Since our first date</div>
+              <p class="v" id="daysDate">—</p>
+              <div class="hint">Since <b>25 Dec 2025</b></div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="quoteCard" aria-label="Quote">
+          <p class="quote">
+            “Coming back wasn’t a coincidence… it was a choice.”
+            <small>— and we chose each other.</small>
+          </p>
+          <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+            <a class="btn" href="#timeline">⤵ Timeline</a>
+            <a class="btn" href="#future">🔮 Future</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section class="section" id="timeline" aria-label="Timeline">
+      <div class="sectionHead">
+        <div>
+          <h2>🕰 Timeline</h2>
+          <p>Soft cinematic milestones — the moments that matter.</p>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn" id="scrollTop" type="button">↑ Top</button>
+        </div>
+      </div>
+
+      <div class="sectionBody">
+        <div class="timelineWrap">
+          <div class="line" aria-hidden="true"></div>
+
+          <!-- Event 1 -->
+          <div class="event">
+            <span class="pin" aria-hidden="true"></span>
+            <article class="card reveal" data-sfx="1">
+              <div class="meta">
+                <span class="badge">💬 The Start</span>
+                <span class="date">3 May 2021</span>
+              </div>
+              <h3 class="title">Our First Chat</h3>
+
+              <div class="photoWrap">
+                <video autoplay muted loop playsinline preload="auto">
+                  <source src="pics/chat.mp4" type="video/mp4">
+                </video>
+              </div>
+
+              <p class="desc">We didn’t know it yet… but something had started.</p>
+            </article>
+          </div>
+
+          <!-- Event 2 -->
+          <div class="event">
+            <span class="pin" aria-hidden="true"></span>
+            <article class="card reveal" data-sfx="1">
+              <div class="meta">
+                <span class="badge">🌙 Time & Silence</span>
+                <span class="date">—</span>
+              </div>
+              <h3 class="title">The Pause</h3>
+              <p class="desc">
+                Some chapters don’t break… they wait. <br>
+                And waiting is still love — when it’s honest.
+              </p>
+            </article>
+          </div>
+
+          <!-- Event 3 -->
+          <div class="event">
+            <span class="pin" aria-hidden="true"></span>
+            <article class="card reveal" data-sfx="1">
+              <div class="meta">
+                <span class="badge">🔁 The Return</span>
+                <span class="date">12 Dec 2025</span>
+              </div>
+              <h3 class="title">We Came Back</h3>
+              <p class="desc">
+                Not because it was easy… because it was worth it.
+                Coming back was a decision — and we meant it.
+              </p>
+            </article>
+          </div>
+
+          <!-- Event 4 -->
+          <div class="event">
+            <span class="pin" aria-hidden="true"></span>
+            <article class="card reveal" data-sfx="1">
+              <div class="meta">
+                <span class="badge">🎄 First Date</span>
+                <span class="date">25 Dec 2025</span>
+              </div>
+              <h3 class="title">The Day the World Felt Softer</h3>
+
+              <div class="photoWrap">
+                <video autoplay muted loop playsinline preload="auto">
+                  <source src="pics/date.mp4" type="video/mp4">
+                </video>
+              </div>
+
+              <p class="desc">
+                A small moment… with a huge meaning. <br>
+                Like the universe quietly saying: “Yes.”
+              </p>
+            </article>
+          </div>
+
+          <!-- Event 5 -->
+          <div class="event">
+            <span class="pin" aria-hidden="true"></span>
+            <article class="card reveal" data-sfx="1">
+              <div class="meta">
+                <span class="badge">🤍 The Promise</span>
+                <span class="date">Now</span>
+              </div>
+              <h3 class="title">Us, On Purpose</h3>
+
+              <div class="photoWrap">
+                <video autoplay muted loop playsinline preload="auto">
+                  <source src="pics/us.mp4" type="video/mp4">
+                </video>
+              </div>
+
+              <p class="desc">
+                Not perfect — but true. <br>
+                We learn, we choose, we stay.
+              </p>
+            </article>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT WE SURVIVED -->
+    <section class="section" aria-label="What we survived">
+      <div class="sectionHead">
+        <div>
+          <h2>🛡 What We Survived</h2>
+          <p>Not scars — proof we were real.</p>
+        </div>
+      </div>
+      <div class="sectionBody">
+        <div class="survivedGrid">
+          <div class="tile reveal" data-sfx="1">
+            <h3>Things that tried to pull us apart</h3>
+            <ul>
+              <li>Distance & timing</li>
+              <li>Misunderstandings</li>
+              <li>Pressure and noise</li>
+              <li>Pride (sometimes)</li>
+              <li>Days that felt heavy</li>
+            </ul>
+            <div class="final">And we still chose each other.</div>
+          </div>
+
+          <div class="tile reveal" data-sfx="1">
+            <h3>What stayed strong</h3>
+            <ul>
+              <li>Honesty (even when scary)</li>
+              <li>Respect</li>
+              <li>Softness</li>
+              <li>Effort — seen and unseen</li>
+              <li>That quiet “I’m here”</li>
+            </ul>
+            <div class="final">Love that doesn’t fade — it matures.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FUTURE -->
+    <section class="section" id="future" aria-label="Future chapter">
+      <div class="sectionHead">
+        <div>
+          <h2>🔮 To Be Continued</h2>
+          <p>Write our next chapter — saved on this device.</p>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn" id="clearFuture" type="button">Clear</button>
+          <button class="btn primary" id="saveFuture" type="button">Save ✨</button>
+        </div>
+      </div>
+
+      <div class="sectionBody">
+        <div class="futureGrid">
+          <div class="tile reveal" data-sfx="1">
+            <h3 style="margin:0 0 8px;font-family:'Playfair Display',serif;color:#243019;">Ideas (cute + real)</h3>
+            <ul>
+              <li>One night: cinema + snacks + “our list”</li>
+              <li>More dates that feel calm</li>
+              <li>New memories, new rituals</li>
+              <li>Growing — without losing softness</li>
+              <li>Building a life that feels safe</li>
+            </ul>
+            <div class="final">The best chapters are the ones we write together.</div>
+          </div>
+
+          <div class="tile reveal" data-sfx="0">
+            <h3 style="margin:0 0 10px;font-family:'Playfair Display',serif;color:#243019;">Write our next chapter</h3>
+            <textarea class="textarea" id="futureText" placeholder="Type here… (it saves automatically too)"></textarea>
+            <div class="miniRow">
+              <div class="tiny" id="saveStatus">Not saved yet.</div>
+              <div class="tiny"><span id="charCount">0</span> chars</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      <span>LOMLA.land</span>
+      <span style="color:var(--muted)"> Cute • Our Story</span>
+    </div>
+
+  </main>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <span class="dot"></span>
+    <div style="min-width:0">
+      <div id="toastTitle" style="font-weight:600;color:var(--olive)">—</div>
+      <small id="toastMsg">—</small>
+    </div>
+  </div>
+
+  <!-- Background Music -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="assets/her.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Soft SFX -->
+  <audio id="sfx" preload="auto">
+    <source src="assets/sfx.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Music Toggle -->
+  <button id="musicToggle" class="musicBtn" title="Music">⏸</button>
+<!-- Background Music -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="assets/her.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Soft SFX -->
+<audio id="sfx" preload="auto">
+  <source src="assets/sfx.mp3" type="audio/mpeg">
+</audio>
+
+<button id="musicToggle" class="musicBtn">🔊</button>
+
+  <script>
+    /* ================= Toast ================= */
+    const toastEl = document.getElementById("toast");
+    const toastTitle = document.getElementById("toastTitle");
+    const toastMsg = document.getElementById("toastMsg");
+    function toast(t,m){
+      toastTitle.textContent=t;
+      toastMsg.textContent=m;
+      toastEl.classList.add("show");
+      clearTimeout(window.__tt);
+      window.__tt=setTimeout(()=>toastEl.classList.remove("show"), 2400);
+    }
+
+    /* ================= Counters ================= */
+    const D_FIRST_CHAT = new Date(2021, 4, 3);
+    const D_COMEBACK   = new Date(2025, 11, 12);
+    const D_FIRST_DATE = new Date(2025, 11, 25);
+
+    function daysBetween(fromDate, toDate){
+      const a = new Date(fromDate.getFullYear(), fromDate.getMonth(), fromDate.getDate());
+      const b = new Date(toDate.getFullYear(), toDate.getMonth(), toDate.getDate());
+      return Math.floor((b - a) / (1000 * 60 * 60 * 24));
+    }
+    function updateCounters(){
+      const now = new Date();
+      document.getElementById("daysChat").textContent = `${Math.max(0, daysBetween(D_FIRST_CHAT, now))} days`;
+      document.getElementById("daysBack").textContent = `${Math.max(0, daysBetween(D_COMEBACK, now))} days`;
+      document.getElementById("daysDate").textContent = `${Math.max(0, daysBetween(D_FIRST_DATE, now))} days`;
+    }
+    updateCounters();
+    setInterval(updateCounters, 30 * 60 * 1000);
+
+    /* ================= Scroll progress ================= */
+    const bar = document.getElementById("bar");
+    function updateProgress(){
+      const doc = document.documentElement;
+      const max = (doc.scrollHeight - doc.clientHeight) || 1;
+      const p = (doc.scrollTop / max) * 100;
+      bar.style.width = `${p}%`;
+    }
+    window.addEventListener("scroll", updateProgress, {passive:true});
+    updateProgress();
+
+    /* ================= Scroll Top ================= */
+    document.getElementById("scrollTop").addEventListener("click", ()=>{
+      window.scrollTo({top:0, behavior:"smooth"});
+    });
+
+    /* ================= Future save (localStorage) ================= */
+    const KEY = "lomla_story_future_chapter";
+    const futureText = document.getElementById("futureText");
+    const saveBtn = document.getElementById("saveFuture");
+    const clearBtn = document.getElementById("clearFuture");
+    const saveStatus = document.getElementById("saveStatus");
+    const charCount = document.getElementById("charCount");
+
+    function updateCount(){ charCount.textContent = String((futureText.value || "").length); }
+
+    function loadFuture(){
+      const v = localStorage.getItem(KEY) || "";
+      futureText.value = v;
+      updateCount();
+      saveStatus.textContent = v ? "Loaded saved chapter ✓" : "Not saved yet.";
+    }
+    function saveFuture(){
+      localStorage.setItem(KEY, futureText.value || "");
+      saveStatus.textContent = "Saved ✓";
+      toast("Our Story", "Future chapter saved ✨");
+    }
+    function clearFuture(){
+      futureText.value = "";
+      localStorage.removeItem(KEY);
+      updateCount();
+      saveStatus.textContent = "Cleared.";
+      toast("Our Story", "Cleared ✖");
+    }
+
+    let t;
+    futureText.addEventListener("input", ()=>{
+      updateCount();
+      saveStatus.textContent = "Typing…";
+      clearTimeout(t);
+      t = setTimeout(()=>{
+        localStorage.setItem(KEY, futureText.value || "");
+        saveStatus.textContent = "Auto-saved ✓";
+      }, 700);
+    });
+
+    saveBtn.addEventListener("click", saveFuture);
+    clearBtn.addEventListener("click", clearFuture);
+    loadFuture();
+
+   // ===== MUSIC (Auto try + fallback on first interaction) =====
+const music = document.getElementById("bgMusic");
+const musicToggle = document.getElementById("musicToggle");
+
+let musicOn = false;
+
+function setBtnState(){
+  musicToggle.textContent = musicOn ? "⏸" : "🔊";
+  musicToggle.classList.toggle("pulse", !musicOn);
+}
+
+function fadeInMusic(){
+  music.volume = 0;
+  const target = 0.28;
+  let v = 0;
+  const step = 0.02;
+  const iv = setInterval(() => {
+    v = Math.min(target, v + step);
+    music.volume = v;
+    if(v >= target) clearInterval(iv);
+  }, 80);
+}
+
+async function tryAutoPlay(){
+  try{
+    await music.play();
+    musicOn = true;
+    fadeInMusic();
+    setBtnState();
+  }catch(err){
+    musicOn = false;
+    setBtnState();
+    console.log("Autoplay blocked:", err?.message || err);
+  }
+}
+
+async function unlockPlay(){
+  if(musicOn) return;
+  try{
+    await music.play();
+    musicOn = true;
+    fadeInMusic();
+    setBtnState();
+  }catch(err){
+    console.log("Play failed:", err?.message || err);
+  }
+}
+
+musicToggle.addEventListener("click", async (e)=>{
+  e.stopPropagation();
+  if(!musicOn){
+    await unlockPlay();
+  }else{
+    music.pause();
+    musicOn = false;
+    setBtnState();
+  }
+});
+
+window.addEventListener("load", tryAutoPlay);
+window.addEventListener("pointerdown", unlockPlay, {passive:true});
+window.addEventListener("keydown", unlockPlay);
+
+setBtnState();
+
+    /* ================= SFX on reveal ================= */
+    const sfx = document.getElementById("sfx");
+    sfx.volume = 0.20;
+
+    function playSfx(){
+      try{
+        const a = sfx.cloneNode(true);
+        a.volume = 0.20;
+        a.play().catch(()=>{});
+      }catch(e){}
+    }
+
+    /* ================= Reveal on scroll ================= */
+    const revealEls = Array.from(document.querySelectorAll(".reveal"));
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add("show");
+
+          // شغل SFX فقط للأشياء اللي data-sfx="1"
+          if(e.target.getAttribute("data-sfx") === "1") playSfx();
+
+          io.unobserve(e.target);
+        }
+      });
+    }, {threshold: 0.14});
+
+    revealEls.forEach(el=>io.observe(el));
+  </script>
+</body>
+</html>

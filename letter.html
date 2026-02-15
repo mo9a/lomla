@@ -1,0 +1,839 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LOMLA.land — Love Letter</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --olive:#6B7A4F;
+      --olive-soft:#A8B18F;
+      --cream:#FAF7F2;
+      --blush:#E6CFC2;
+      --gold:#C8A24A;
+
+      --text:#1f2418;
+      --muted:#5a5f50;
+
+      --border:1px solid rgba(107,122,79,.18);
+      --shadow:0 20px 60px rgba(0,0,0,.14);
+      --shadow-sm:0 10px 26px rgba(0,0,0,.10);
+
+      --glass: rgba(250,247,242,.60);
+      --glass2: rgba(250,247,242,.80);
+
+      --r-lg:22px;
+      --r-md:16px;
+
+      --ring: rgba(107,122,79,.35);
+      --ring2: rgba(200,162,74,.22);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+body{
+  margin:0;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  color:var(--text);
+  overflow-x:hidden;
+
+  background: #0f130c; /* fallback */
+}
+
+
+    a{color:inherit;text-decoration:none}
+
+    /* ===== Topbar ===== */
+    .topbar{
+      position:sticky; top:0; z-index:60;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      background: rgba(250,247,242,.35);
+      border-bottom: 1px solid rgba(107,122,79,.10);
+      padding:10px 0 14px;
+    }
+    .topbarInner{
+      max-width:1200px;margin:0 auto;padding:0 18px;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+    }
+    .brand{
+      display:flex;align-items:baseline;gap:10px;
+      font-family:"Playfair Display",serif; letter-spacing:.4px;
+    }
+    .brand .logo{font-size:26px;font-weight:600;color:var(--olive)}
+    .brand .tag{
+      font-family:Inter,sans-serif;
+      font-size:12px;color:var(--muted);
+      padding:6px 10px;border-radius:999px;
+      border:var(--border);
+      background:rgba(250,247,242,.55);
+      backdrop-filter: blur(6px);
+      white-space:nowrap;
+    }
+    .actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+    .btn{
+      border:var(--border);
+      background:rgba(250,247,242,.74);
+      color:var(--olive);
+      padding:10px 14px;border-radius:999px;
+      box-shadow:var(--shadow-sm);
+      cursor:pointer;
+      display:inline-flex;align-items:center;gap:8px;
+      transition: transform .18s ease, box-shadow .18s ease;
+      user-select:none;
+      font-weight:500;
+      line-height:1;
+      outline:none;
+    }
+    .btn:hover{transform: translateY(-1px); box-shadow: var(--shadow);}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(107,122,79,.96), rgba(107,122,79,.86));
+      color: var(--cream);
+      border: 1px solid rgba(107,122,79,.55);
+    }
+
+    /* ===== Full Screen Stage ===== */
+    .stage{
+      min-height: calc(100vh - 74px);
+      display:grid;
+      place-items:center;
+      padding: 22px 18px 60px;
+    }
+
+    .heroCard{
+      width: min(1100px, 100%);
+      border-radius: 28px;
+      border: 1px solid rgba(107,122,79,.18);
+      background: var(--glass);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 18px;
+      overflow:hidden;
+      position:relative;
+    }
+    .heroCard::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(600px 240px at 20% 10%, rgba(200,162,74,.16), transparent 60%),
+        radial-gradient(650px 260px at 85% 20%, rgba(168,177,143,.18), transparent 60%);
+      pointer-events:none;
+      opacity:.9;
+    }
+
+    .headerRow{
+      position:relative;
+      display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+      padding: 8px 8px 16px;
+      z-index:2;
+    }
+    .headerRow h1{
+      margin:0 0 6px;
+      font-family:"Playfair Display",serif;
+      font-size:34px;
+      line-height:1.15;
+      color:var(--olive);
+      letter-spacing:.2px;
+    }
+    .headerRow p{margin:0;color:var(--muted);line-height:1.8;font-size:14.5px;max-width:56ch}
+    .headerBtns{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+
+    /* ===== 3D Gift Scene ===== */
+    .scene{
+      position:relative;
+      z-index:2;
+      display:grid;
+      grid-template-columns: 1fr 340px;
+      gap:16px;
+      align-items:center;
+      padding: 8px;
+    }
+    @media (max-width: 920px){
+      .scene{grid-template-columns: 1fr; }
+    }
+
+    .leftArea{
+      display:grid;
+      place-items:center;
+      padding: 18px;
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,.20);
+      background: rgba(250,247,242,.42);
+      box-shadow: 0 14px 40px rgba(0,0,0,.08);
+      backdrop-filter: blur(10px);
+    }
+
+    .rightArea{
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,.20);
+      background: rgba(250,247,242,.50);
+      box-shadow: 0 14px 40px rgba(0,0,0,.08);
+      backdrop-filter: blur(10px);
+      padding: 16px;
+    }
+
+    .miniTitle{
+      font-weight:700;color:var(--olive);margin-bottom:8px;
+      display:flex;align-items:center;gap:10px;
+    }
+    .note{
+      border-radius: 18px;
+      border: 1px solid rgba(107,122,79,.16);
+      background: rgba(250,247,242,.72);
+      padding: 12px 12px;
+      color: rgba(90,95,80,.92);
+      line-height:1.8;
+      font-size:13.5px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* 3D box container */
+    .gift3dWrap{
+      width: min(720px, 100%);
+      aspect-ratio: 16/10;
+      position:relative;
+      perspective: 1100px;
+      display:grid;
+      place-items:center;
+    }
+
+    .gift3d{
+      width: min(520px, 92%);
+      height: 320px;
+      position:relative;
+      transform-style: preserve-3d;
+      transform: rotateX(18deg) rotateY(-18deg);
+      transition: transform .45s ease;
+      filter: drop-shadow(0 28px 40px rgba(0,0,0,.22));
+    }
+    .gift3d:hover{
+      transform: rotateX(16deg) rotateY(-14deg) translateY(-2px);
+    }
+
+    /* Box base */
+    .boxBase{
+      position:absolute; inset:0;
+      transform-style: preserve-3d;
+    }
+    .face{
+      position:absolute;
+      background: rgba(250,247,242,.92);
+      border: 1px solid rgba(107,122,79,.18);
+      border-radius: 18px;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.22);
+      overflow:hidden;
+    }
+
+    /* top surface of base (opening) */
+    .baseTop{
+      inset:0;
+      transform: translateZ(70px);
+      background:
+        radial-gradient(120px 60px at 50% 30%, rgba(200,162,74,.18), transparent 70%),
+        rgba(250,247,242,.92);
+    }
+
+    /* front, back, left, right, bottom */
+    .baseFront{left:0; right:0; bottom:0; height: 140px; transform: rotateX(90deg) translateZ(70px); transform-origin: bottom;}
+    .baseBack{left:0; right:0; top:0; height: 140px; transform: rotateX(-90deg) translateZ(70px); transform-origin: top;}
+    .baseLeft{top:0; bottom:0; left:0; width: 140px; transform: rotateY(-90deg) translateZ(70px); transform-origin:left;}
+    .baseRight{top:0; bottom:0; right:0; width: 140px; transform: rotateY(90deg) translateZ(70px); transform-origin:right;}
+    .baseBottom{inset:0; transform: translateZ(0px); background: rgba(245,241,235,.95);}
+
+    /* Ribbon on baseTop */
+    .baseTop::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        linear-gradient(90deg,
+          transparent 0 45%,
+          rgba(200,162,74,.30) 45% 55%,
+          transparent 55% 100%),
+        linear-gradient(0deg,
+          transparent 0 45%,
+          rgba(200,162,74,.26) 45% 55%,
+          transparent 55% 100%);
+      opacity:.95;
+      pointer-events:none;
+    }
+
+    /* Lid (hinged) */
+    .lid{
+      position:absolute; inset:-8px;
+      transform-style: preserve-3d;
+      transform-origin: 50% 100%;
+      transform: translateZ(72px) rotateX(0deg);
+      transition: transform .7s cubic-bezier(.2,.9,.2,1);
+      pointer-events:auto;
+    }
+    .lidTop{
+      inset:0;
+      transform: translateZ(28px);
+      background:
+        radial-gradient(140px 70px at 50% 30%, rgba(200,162,74,.22), transparent 70%),
+        rgba(250,247,242,.94);
+    }
+    .lidFront{left:0; right:0; bottom:0; height: 90px; transform: rotateX(90deg) translateZ(28px); transform-origin: bottom;}
+    .lidBack{left:0; right:0; top:0; height: 90px; transform: rotateX(-90deg) translateZ(28px); transform-origin: top;}
+    .lidLeft{top:0; bottom:0; left:0; width: 90px; transform: rotateY(-90deg) translateZ(28px); transform-origin:left;}
+    .lidRight{top:0; bottom:0; right:0; width: 90px; transform: rotateY(90deg) translateZ(28px); transform-origin:right;}
+    .lidBottom{inset:0; transform: translateZ(0px); background: rgba(245,241,235,.96); border-radius:18px;}
+
+    /* Bow on lidTop */
+    .bow{
+      position:absolute;
+      left:50%; top:18px;
+      transform: translateX(-50%);
+      width:140px; height:80px;
+      pointer-events:none;
+      filter: drop-shadow(0 12px 18px rgba(0,0,0,.16));
+    }
+    .bow::before, .bow::after{
+      content:"";
+      position:absolute; top:18px;
+      width:62px; height:40px;
+      background: rgba(200,162,74,.26);
+      border: 1px solid rgba(200,162,74,.38);
+      border-radius: 22px 22px 22px 8px;
+    }
+    .bow::before{left:0; transform: rotate(-12deg);}
+    .bow::after{right:0; transform: rotate(12deg); border-radius:22px 22px 8px 22px;}
+    .knot{
+      position:absolute; left:50%; top:28px; transform: translateX(-50%);
+      width:22px;height:22px;border-radius:999px;
+      background: rgba(200,162,74,.34);
+      border: 1px solid rgba(200,162,74,.48);
+    }
+    .lidTop::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        linear-gradient(90deg,
+          transparent 0 45%,
+          rgba(200,162,74,.30) 45% 55%,
+          transparent 55% 100%),
+        linear-gradient(0deg,
+          transparent 0 45%,
+          rgba(200,162,74,.26) 45% 55%,
+          transparent 55% 100%);
+      opacity:.95;
+      pointer-events:none;
+    }
+
+    /* Inside letter rises out */
+ .letterCard{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform: translate(-50%, -50%) translateZ(70px) translateY(40px);
+  width: min(520px, 90%);
+  height: min(70vh, 640px);              /* ✅ أكبر بكثير */
+  border-radius: 18px;
+  border: 1px solid rgba(107,122,79,.18);
+  box-shadow: 0 22px 60px rgba(0,0,0,.18);
+  overflow: hidden;                       /* نخليها عشان الحواف نظيفة */
+  background: #eee;
+  opacity: 0;
+  transition:
+    transform .85s cubic-bezier(.2,.9,.2,1),
+    opacity .35s ease;
+  pointer-events:none;
+}
+
+    /* parchment as real background (not stretched weirdly) */
+    .parchment{
+      position:absolute; inset:0;
+      background-image: url("pics/parchment.jpg");
+      background-size: cover;
+      background-position: center;
+      filter: saturate(1.05) contrast(1.03);
+    }
+    .parchment::after{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(800px 240px at 50% 40%, rgba(255,255,255,.25), transparent 55%),
+        radial-gradient(900px 300px at 50% 120%, rgba(0,0,0,.14), transparent 60%);
+      pointer-events:none;
+      mix-blend-mode: soft-light;
+      opacity:.9;
+    }
+
+    .letterContent{
+      position:absolute; inset:0;
+      display:grid;
+      place-items:center;
+      padding: 18px;
+      text-align:center;
+      color:#3a2b16;
+    }
+    .paperInner{
+  width: 100%;
+  max-width: 420px;
+  background: rgba(255,255,255,.18);
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: 16px;
+  padding: 16px 14px;
+  backdrop-filter: blur(2px);
+
+  max-height: calc(min(70vh, 640px) - 120px);  /* ✅ يخلي النص ما يطلع برا */
+  overflow: auto;                               /* ✅ سكرول */
+}
+   .paperInner::-webkit-scrollbar{ width:10px; }
+.paperInner::-webkit-scrollbar-thumb{
+  background: rgba(107,122,79,.25);
+  border-radius: 999px;
+  border: 3px solid rgba(255,255,255,.18);
+}
+.paperInner::-webkit-scrollbar-track{
+  background: rgba(255,255,255,.08);
+  border-radius: 999px;
+}
+
+    /* Open state */
+    .open .lid{
+      transform: translateZ(72px) rotateX(-120deg);
+    }
+    .open .letterCard{
+      opacity: 1;
+      transform: translate(-50%, -50%) translateZ(100px) translateY(-110px);
+      pointer-events:auto;
+    }
+
+    /* Click hint */
+    .tapHint{
+      position:absolute;
+      left:50%;
+      bottom:12px;
+      transform: translateX(-50%);
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(107,122,79,.18);
+      background: rgba(250,247,242,.84);
+      box-shadow: 0 12px 28px rgba(0,0,0,.12);
+      font-size:12.5px;
+      color:rgba(90,95,80,.95);
+      display:flex;align-items:center;gap:8px;
+      user-select:none;
+      transition: opacity .25s ease, transform .25s ease;
+      z-index:10;
+    }
+    .open .tapHint{
+      opacity:0;
+      transform: translateX(-50%) translateY(6px);
+      pointer-events:none;
+    }
+
+    /* nice hover ring */
+    .heroCard:focus-within,
+    .btn:focus-visible{
+      outline:none;
+      box-shadow: 0 0 0 4px rgba(107,122,79,.18), var(--shadow);
+      border-color: rgba(107,122,79,.35);
+    }
+
+    /* Toast */
+    .toast{
+      position: fixed;
+      left: 18px;
+      bottom: 18px;
+      background: rgba(250,247,242,.92);
+      border: var(--border);
+      box-shadow: var(--shadow);
+      border-radius: 999px;
+      padding: 10px 14px;
+      display:flex; align-items:center; gap:10px;
+      opacity:0;
+      transform: translateY(8px);
+      transition: opacity .25s ease, transform .25s ease;
+      pointer-events:none;
+      max-width: calc(100vw - 36px);
+      z-index:100;
+    }
+    .toast.show{opacity:1; transform: translateY(0);}
+    .dot{
+      width:8px;height:8px;border-radius:50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 3px rgba(200,162,74,.18);
+      flex:0 0 auto;
+    }
+    .toast small{color:var(--muted)}
+
+    /* small controls */
+    .stat{
+      border-radius: 18px;
+      border: 1px solid rgba(107,122,79,.16);
+      background: rgba(250,247,242,.72);
+      box-shadow: var(--shadow-sm);
+      padding: 12px;
+      margin-top: 10px;
+    }
+    .stat b{color:var(--olive)}
+    .mini{
+      font-size:12.5px;
+      color: rgba(90,95,80,.92);
+      line-height:1.7;
+    }
+    /* Right area cute looping video */
+.ambientCard{
+  border-radius: 22px;
+  border: 1px solid rgba(107,122,79,.14);
+  background: rgba(250,247,242,.62);
+  box-shadow: 0 14px 40px rgba(0,0,0,.08);
+  padding: 12px;
+}
+
+.ambientFrame{
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;         /* شكل مرتب */
+  background:
+    radial-gradient(400px 200px at 30% 20%, rgba(200,162,74,.14), transparent 60%),
+    radial-gradient(420px 220px at 80% 30%, rgba(168,177,143,.18), transparent 60%),
+    rgba(250,247,242,.55);
+  border: 1px solid rgba(255,255,255,.28);
+}
+
+.ambientVid{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit: cover;
+  filter: saturate(1.06) contrast(1.03);
+  transform: scale(1.01);
+}
+
+.ambientGlow{
+  position:absolute;
+  inset:-30%;
+  background: radial-gradient(circle at 50% 30%, rgba(255,255,255,.22), transparent 55%);
+  pointer-events:none;
+  mix-blend-mode: soft-light;
+  animation: ambientFloat 8s ease-in-out infinite;
+}
+
+@keyframes ambientFloat{
+  0%,100%{ transform: translateY(0) }
+  50%{ transform: translateY(-10px) }
+}
+
+.ambientLabel{
+  position:absolute;
+  left:12px;
+  bottom:12px;
+  padding:8px 10px;
+  border-radius:999px;
+  border: 1px solid rgba(107,122,79,.18);
+  background: rgba(250,247,242,.78);
+  color: rgba(90,95,80,.95);
+  font-size:12.5px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.10);
+  backdrop-filter: blur(8px);
+}
+
+.ambientFrame:hover{
+  border-color: rgba(107,122,79,.35);
+  box-shadow: 0 0 0 3px rgba(107,122,79,.14);
+}
+/* ===== Background Video ===== */
+.bgVideo{
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -3;
+  filter: saturate(1.05) contrast(1.05);
+}
+
+/* طبقة ألوان زيتية/وردية/ذهبية فوق الفيديو */
+.bgOverlay{
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(900px 500px at 20% 10%, rgba(230,207,194,.20), transparent 60%),
+    radial-gradient(900px 500px at 85% 15%, rgba(200,162,74,.18), transparent 60%),
+    linear-gradient(180deg, rgba(107,122,79,.28), rgba(15,19,12,.25));
+  pointer-events: none;
+}
+
+/* خلي المحتوى فوق الخلفية */
+.topbar, .stage{ position: relative; z-index: 1; }
+
+  </style>
+</head>
+
+<body>
+  <video class="bgVideo" autoplay muted loop playsinline preload="auto">
+  <source src="pics/cutewallpaper.mp4" type="video/mp4">
+</video>
+<div class="bgOverlay" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="topbarInner">
+      <div class="brand">
+        <div class="logo">LOMLA.land</div>
+        <div class="tag">Olive • Cute Luxury • Love Letter</div>
+      </div>
+
+      <div class="actions">
+        <a class="btn" href="index.html">← Home</a>
+        <a class="btn" href="story.html">our story</a>
+        <a class="btn" href="catkingdom.html">🐾 Cat Kingdom</a>
+        <a class="btn primary" href="secret.html">🔐 Secret</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="stage">
+    <section class="heroCard" aria-label="Luxury 3D gift letter">
+      <div class="headerRow">
+        <div>
+          <h1>🎁 Gift Box Letter</h1>
+          <p>
+            A luxury 3D box. It will NOT open by itself. <br>
+            Click <b>Open</b> or click the lid.
+          </p>
+        </div>
+        <div class="headerBtns">
+          <button class="btn primary" id="toggleBtn" type="button">Open ✨</button>
+          <button class="btn" id="closeBtn" type="button">Close ✖</button>
+        </div>
+      </div>
+
+      <div class="scene">
+        <!-- LEFT: 3D Gift -->
+        <div class="leftArea">
+          <div class="gift3dWrap">
+            <div class="gift3d" id="gift">
+              <div class="boxBase">
+                <div class="face baseBottom"></div>
+                <div class="face baseTop"></div>
+                <div class="face baseFront"></div>
+                <div class="face baseBack"></div>
+                <div class="face baseLeft"></div>
+                <div class="face baseRight"></div>
+              </div>
+
+              <!-- Letter inside -->
+              <div class="letterCard" aria-label="Old paper letter">
+                <div class="parchment"></div>
+                <div class="letterContent">
+                  <div class="paperInner">
+                    <h2>╭────── · · ୨୧ · · ──────╮</h2>
+                    <h2>My LALA 🤍</h2>
+                    <p>
+                     This is a royal parchment… born of silence and time its ink drawn from eternity itself it was'nt written to impress the moment but to outlive it because you were never meant for what fades
+
+You belong to the rare things: to words that settle in the soul and never leave to promises that do not tremble with doubt to a beauty that exists even when unseen 
+
+And just as I gifted you this offering God gifted me something far greater you Perhaps I was born only to walk this world beside your beautiful magic the kind that sets you apart from all others
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⣤⣤⣤⣤⣤⣤⣤⣤⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⠶⠟⠛⠛⠉⠉⠉⠁⠀⠀⠈⠉⠉⠙⠛⠿⢶⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⣠⠖⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⢷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢠⡾⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢷⣄⠀⠀⠀⠀⠀⢀⣀⠀⠀⠀⠀
+⠀⠀⠀⣠⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣀⠀⠀⠀⠹⣧⡀⠀⠀⠀⡏⠉⠙⠋⢹⡆
+⠀⠀⢠⡿⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠚⠉⠉⠛⠿⣦⡀⠀⠸⣷⡀⠀⠀⠹⣄⠀⠠⡹⠃
+⠀⢀⣿⠃⠀⠀⠀⠀⣠⣶⠾⠟⠛⠉⠉⠛⠿⣶⣄⠀⠀⠀⠀⣰⠃⢀⣠⣤⣄⠀⠈⢻⣦⠀⢻⣧⠀⠀⠀⠈⠓⠋⠀⠀
+⠀⢸⣿⠀⠀⠀⣠⣾⠋⠁⠀⠀⢀⣠⣤⣤⣤⣈⠙⣷⣄⠀⢠⣏⣶⣿⣿⣿⣿⣿⣦⠀⢻⣧⠘⣿⢀⢸⡛⠛⢲⠀⠀⠀
+⠀⣾⡇⠀⠀⢠⡿⠁⠀⠀⣠⣾⡿⢿⣿⣿⣿⣿⣷⣌⢿⣆⢸⣿⡋⠉⢉⣿⣿⣿⣿⣧⠈⣿⠀⣿⣿⠀⠹⠶⠋⠀⠀⠀
+⠈⡟⣿⠀⠀⢸⠇⠀⢀⣼⣄⠈⠀⣸⣿⣿⣿⣿⣿⣿⡎⣿⣿⣿⣿⣶⣿⣻⣿⣿⣿⣿⣤⣿⢀⣿⣿⠀⠀⠀⠀⠀⠀⠀
+⠀⢷⢹⡆⠀⢸⡄⠀⣾⣿⣿⣿⣿⣿⣩⣿⣿⣿⣿⣿⣇⣿⢹⣿⣿⣿⣿⣿⣿⣿⣟⣿⣿⠏⣸⢧⠏⠀⠀⠀⠀⠀⠀⠀
+⠀⠈⣇⢳⡀⠈⢧⠐⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠈⢿⣿⣿⣿⣿⣿⣿⣿⣿⠏⢠⢁⡞⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠈⢎⠃⠀⠈⠳⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣾⠟⠁⠀⠀⠈⠻⣿⣿⣿⣿⡿⠟⠁⠀⣠⠎⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠈⠳⣄⠀⠀⠈⠙⡻⠿⢿⣿⡿⠿⠟⠋⠁⠀⠀⠀⠀⠀⠀⠀⠈⠉⠃⣀⡀⣰⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⣀⡤⠬⣷⣄⡲⣤⣈⠀⠈⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⡴⢛⡵⠚⠁⠀⢀⣠⣤⣀⡀⠀⠀⠀⠀⠀⠀
+⠀⠀⠸⣇⠀⠀⠀⢻⣿⠒⠭⣟⣷⢶⣤⣤⣤⣤⣤⣤⣤⣤⣶⢾⣟⠯⠗⠊⠁⠀⠀⠀⣾⠟⠁⠀⢘⣿⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⢹⣧⠀⠀⠈⣿⡄⠀⠀⠈⠉⠛⠛⠛⠛⠛⠒⠋⠛⠉⠉⠀⠀⠀⠀⠀⠀⠀⢸⡿⠀⠀⢠⣿⠏⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⣠⣿⠇⠀⠀⠙⠛⠛⠒⠒⠛⠛⠛⠻⠿⢷⡢⣤⣔⡶⠿⠟⠛⠛⠛⠻⠿⠽⠟⠁⠀⠀⢺⡿⡄⠀⠀⠀⠀⠀⠀
+⠀⠀⢰⣿⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣾⡁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣿⡀⠀⠀⠀⠀⠀
+⠀⠀⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠙⠛⠻⢿⣿⠒⠲⠛⠙⠲⠦⢼⣿⡿⠟⠛⠃⠀⠀⠀⠀⠀⠀⠀⢸⣇⡇⠀⠀⠀⠀⠀
+⠀⠀⠹⠿⣧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⠇⠀⠀⠀⠀⠀⢸⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡾⡻⠃⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠈⠻⢦⣀⠀⠀⠀⠀⠀⠀⢀⡾⡿⠀⠀⠀⠀⠀⠀⠘⣿⣆⠀⠀⠀⠀⠀⠀⢀⣠⣴⢯⠞⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠉⠛⠳⠶⠶⠶⣖⡿⠚⠁⠀⠀⠀⠀⠀⠀⠀⠘⠮⣷⣶⡤⡤⠴⠾⠟⠋⠚⠁⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+
+I love you in a way words fail to explain in a way all the years I have lived and all the people I have known could never teach me how to describe the strength of what I feel for you
+
+I want to fight alongside you so we may remain forever
+ I will not allow anything to pull us apart And I'm always trying to do things seen or unseen to make what we have better stronger and more worthy of US
+
+And maybe you do not always see it but everything arrives in its time… and in time everything becomes beautiful
+
+And as your eyes outshine every other star you are the only one I see truly lighting the sky
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣤⣤⣤⣄⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣳⣿⠁⠉⠛⣷⡇
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣶⣷⡾⣯⣿⣿⠀⠀⢀⣿⡇
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣀⡀⠀⠀⠀⠀⠀⢸⡇⡇⠈⠫⠟⢿⠀⠀⣼⣿⠃
+⠀⠀⠀⠀⠀⠀⣰⣯⣿⡿⠛⢿⢿⣷⠀⠀⠀⠀⠈⢿⣯⣖⣂⣤⣄⣤⣿⣿⠏⠀
+⣤⣞⠟⠿⢯⡯⣿⣟⠉⠁⠀⢸⣼⣿⠒⠂⠀⠀⠀⠀⠀⠉⠉⠉⠉⠉⠉⠹⠃⠀
+⣿⣿⣄⠀⠀⢻⣿⡿⠀⠀⢀⣏⣟⢳⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠙⣿⣷⣧⡀⠘⠛⠃⠀⣠⣞⣿⡯⠃⠀⠀⠀⠀⠀⠀⢀⣄⡄⡄⠀⠀⠀⠀⠀⠀
+⠀⠈⢿⣟⣮⣦⡀⡀⣴⣷⡟⠃⠀⠀⠀⠀⠀⠀⠀⡴⣟⣛⠛⢿⡄⠀⠀⠀⠀⠀
+⠀⠀⠀⠈⠛⣿⣿⣿⡿⠋⠀⠀⠀⡤⣄⣤⣤⣄⣾⡟⠀⠀⠁⣸⡇⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠁⠁⠀⠀⠀⠀⠀⣷⡏⡏⠉⠉⢿⡇⠀⠀⣴⣿⠇⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢯⡮⡦⣀⠀⠀⠀⢀⣿⠇⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠑⢭⢯⣵⣿⠿⠶⡿⠃⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⠉⠵⠻⠁⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠰⠁⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠂⠀⠀⠀⠀
+                    </p>
+                    <h2>
+╰────── · · ୨୧ · · ──────╯</h2>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Lid (clickable) -->
+              <div class="lid" id="lid" role="button" tabindex="0" aria-label="Gift lid">
+                <div class="face lidBottom"></div>
+                <div class="face lidTop">
+                  <div class="bow"><div class="knot"></div></div>
+                </div>
+                <div class="face lidFront"></div>
+                <div class="face lidBack"></div>
+                <div class="face lidLeft"></div>
+                <div class="face lidRight"></div>
+              </div>
+
+              <div class="tapHint">👑 click lid to open</div>
+            </div>
+          </div>
+        </div>
+
+       <aside class="rightArea">
+
+  <div class="ambientCard" aria-label="Cute looping video">
+    <div class="ambientFrame">
+      <video
+        class="ambientVid"
+        src="assets/cute.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+      ></video>
+
+      <div class="ambientGlow" aria-hidden="true"></div>
+      <div class="ambientLabel">          <3 </div>
+    </div>
+  </div>
+
+</aside>
+
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <span class="dot"></span>
+    <div style="min-width:0">
+      <div id="toastTitle" style="font-weight:600;color:var(--olive)">—</div>
+      <small id="toastMsg">—</small>
+    </div>
+  </div>
+  <!-- Audio (بدون controls) -->
+<audio id="bgMusic" preload="auto" loop>
+  <source src="assets/letter.mp3" type="audio/mpeg">
+</audio>
+
+<!-- زر تشغيل/إيقاف -->
+<button id="musicBtn" class="btn" type="button" style="position:fixed;right:18px;bottom:18px;z-index:999;">
+  ⏸️ Stop Music
+</button>
+  <script>
+    const gift = document.getElementById("gift");
+    const lid  = document.getElementById("lid");
+    const toggleBtn = document.getElementById("toggleBtn");
+    const closeBtn  = document.getElementById("closeBtn");
+
+    const toastEl = document.getElementById("toast");
+    const toastTitle = document.getElementById("toastTitle");
+    const toastMsg = document.getElementById("toastMsg");
+
+    function toast(t,m){
+      toastTitle.textContent=t;
+      toastMsg.textContent=m;
+      toastEl.classList.add("show");
+      clearTimeout(window.__tt);
+      window.__tt=setTimeout(()=>toastEl.classList.remove("show"), 2200);
+    }
+
+    function setOpen(open){
+      gift.classList.toggle("open", !!open);
+      toggleBtn.textContent = open ? "Opened ✓" : "Open ✨";
+      toast("Gift Box", open ? "Opened 👑" : "Closed ✖");
+    }
+
+    function toggle(){
+      setOpen(!gift.classList.contains("open"));
+    }
+
+    // No auto open:
+    setOpen(false);
+
+    toggleBtn.addEventListener("click", () => setOpen(true));
+    closeBtn.addEventListener("click",  () => setOpen(false));
+
+    lid.addEventListener("click", toggle);
+    lid.addEventListener("keydown", (e)=>{
+      if(e.key==="Enter" || e.key===" "){
+        e.preventDefault();
+        toggle();
+      }
+    });
+   // ===== MUSIC =====
+const music = document.getElementById("bgMusic");
+const musicBtn = document.getElementById("musicBtn");
+
+music.volume = 0.25;
+
+async function tryAutoPlay(){
+  try{
+    await music.play();
+    musicBtn.textContent = "⏸️ Stop Music";
+  }catch(err){
+    // Autoplay blocked - play on first user interaction
+    musicBtn.textContent = "▶️ Play Music";
+    const resume = async () => {
+      try{
+        await music.play();
+        musicBtn.textContent = "⏸️ Stop Music";
+      }catch(e){}
+      window.removeEventListener("pointerdown", resume);
+      window.removeEventListener("keydown", resume);
+    };
+    window.addEventListener("pointerdown", resume, { once:true });
+    window.addEventListener("keydown", resume, { once:true });
+  }
+}
+tryAutoPlay();
+
+musicBtn.addEventListener("click", async () => {
+  if(music.paused){
+    try{
+      await music.play();
+      musicBtn.textContent = "⏸️ Stop Music";
+    }catch(e){}
+  }else{
+    music.pause();
+    musicBtn.textContent = "▶️ Play Music";
+  }
+});
+
+  </script>
+
+
+</body>
+</html>

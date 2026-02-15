@@ -1,0 +1,1166 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LOMLA.land — Cinema</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --olive:#6B7A4F;
+      --olive-soft:#A8B18F;
+      --cream:#FAF7F2;
+      --blush:#E6CFC2;
+      --gold:#C8A24A;
+
+      --bg:#0f130c;
+      --panel: rgba(250,247,242,.10);
+      --panel2: rgba(250,247,242,.14);
+      --border: 1px solid rgba(168,177,143,.22);
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --shadow2: 0 10px 30px rgba(0,0,0,.28);
+
+      --text:#f4f2ee;
+      --muted: rgba(244,242,238,.72);
+      --muted2: rgba(244,242,238,.58);
+
+      --r-xl:26px;
+      --r-lg:18px;
+      --r-md:14px;
+
+      --ring: 0 0 0 3px rgba(107,122,79,.22);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x:hidden;
+    }
+
+    /* ===== Background video (optional) ===== */
+    .bgVideo{
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -10;
+      pointer-events:none;
+      filter: saturate(1.05) contrast(1.06) brightness(.65);
+    }
+    .bgOverlay{
+      position: fixed;
+      inset: 0;
+      z-index: -9;
+      pointer-events:none;
+      background:
+        radial-gradient(1200px 520px at 75% 0%, rgba(200,162,74,.18), transparent 60%),
+        radial-gradient(1100px 560px at 10% 20%, rgba(230,207,194,.18), transparent 55%),
+        radial-gradient(900px 500px at 30% 110%, rgba(107,122,79,.18), transparent 60%),
+        linear-gradient(180deg, rgba(15,19,12,.20), rgba(15,19,12,.80));
+    }
+
+    a{color:inherit;text-decoration:none}
+
+    .wrap{
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 18px 60px;
+    }
+
+    /* ===== Topbar ===== */
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding: 10px 6px 18px;
+    }
+    .brand{
+      display:flex;
+      align-items:baseline;
+      gap:10px;
+      font-family:"Playfair Display",serif;
+      letter-spacing:.4px;
+    }
+    .brand .logo{
+      font-size:26px;
+      font-weight:600;
+      color: var(--gold);
+    }
+    .brand .tag{
+      font-family:Inter,sans-serif;
+      font-size:12px;
+      color: var(--muted);
+      padding:6px 10px;
+      border-radius:999px;
+      border: var(--border);
+      background: rgba(250,247,242,.10);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      white-space:nowrap;
+    }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      align-items:center;
+    }
+    .btn{
+      border: var(--border);
+      background: rgba(250,247,242,.10);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 999px;
+      box-shadow: var(--shadow2);
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+      user-select:none;
+      font-weight:500;
+      line-height:1;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .btn:hover{ transform: translateY(-1px); box-shadow: var(--shadow); border-color: rgba(200,162,74,.28); }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(200,162,74,.95), rgba(107,122,79,.80));
+      border: 1px solid rgba(200,162,74,.40);
+      color: #12160e;
+      font-weight:600;
+    }
+
+    /* ===== Hero ===== */
+    .hero{
+      border: var(--border);
+      border-radius: var(--r-xl);
+      background: rgba(250,247,242,.08);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+      padding: 18px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .hero::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(800px 260px at 15% 20%, rgba(200,162,74,.15), transparent 60%),
+        radial-gradient(900px 300px at 85% 30%, rgba(107,122,79,.16), transparent 60%);
+      pointer-events:none;
+      opacity:.9;
+    }
+    .heroRow{
+      position:relative;
+      z-index:2;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+      padding: 6px 6px 12px;
+    }
+    .heroTitle h1{
+      margin:0 0 6px;
+      font-family:"Playfair Display",serif;
+      font-size:34px;
+      letter-spacing:.2px;
+      line-height:1.12;
+      color: var(--gold);
+    }
+    .heroTitle p{
+      margin:0;
+      color: var(--muted);
+      line-height:1.8;
+      max-width: 68ch;
+      font-size:14.5px;
+    }
+
+    .controls{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+    }
+
+    .input, .select{
+      border: var(--border);
+      background: rgba(250,247,242,.10);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 10px 12px;
+      outline:none;
+      min-width: 220px;
+      box-shadow: var(--shadow2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .input::placeholder{color: rgba(244,242,238,.55)}
+    .select{min-width: 180px}
+
+    .sectionGrid{
+      position:relative;
+      z-index:2;
+      margin-top: 14px;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:16px;
+    }
+
+    .section{
+      border: var(--border);
+      background: rgba(250,247,242,.08);
+      border-radius: var(--r-xl);
+      box-shadow: var(--shadow2);
+      padding: 16px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .sectionHead{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom: 12px;
+    }
+    .sectionHead h2{
+      margin:0;
+      font-family:"Playfair Display",serif;
+      font-size:22px;
+      color: rgba(244,242,238,.92);
+      letter-spacing:.2px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .pill{
+      border: 1px solid rgba(200,162,74,.24);
+      background: rgba(200,162,74,.10);
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size:12px;
+      color: rgba(244,242,238,.84);
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      white-space:nowrap;
+    }
+    .pill .dot{
+      width:6px; height:6px;
+      border-radius:50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 3px rgba(200,162,74,.16);
+    }
+
+    /* ===== Cards grid ===== */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap:12px;
+    }
+    @media (max-width: 1100px){ .grid{grid-template-columns: repeat(4, 1fr);} }
+    @media (max-width: 900px){ .grid{grid-template-columns: repeat(3, 1fr);} }
+    @media (max-width: 640px){ .grid{grid-template-columns: repeat(2, 1fr);} }
+
+    .card{
+      border-radius: 18px;
+      overflow:hidden;
+      border: 1px solid rgba(250,247,242,.12);
+      background: rgba(0,0,0,.18);
+      box-shadow: 0 14px 34px rgba(0,0,0,.38);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      cursor:pointer;
+      position:relative;
+      min-height: 290px;
+    }
+    .card:hover{
+      transform: translateY(-4px);
+      box-shadow: 0 20px 55px rgba(0,0,0,.48);
+      border-color: rgba(200,162,74,.26);
+    }
+    .poster{
+      width:100%;
+      height: 220px;
+      object-fit: cover;
+      display:block;
+      filter: saturate(1.03) contrast(1.03);
+    }
+    .cardBody{
+      padding: 10px 10px 12px;
+    }
+    .titleLine{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:8px;
+      margin-bottom: 6px;
+    }
+    .tTitle{
+      font-size: 13.5px;
+      font-weight:600;
+      line-height:1.35;
+      color: rgba(244,242,238,.95);
+      letter-spacing:.1px;
+    }
+    .meta{
+      font-size: 12px;
+      color: var(--muted2);
+      display:flex;
+      gap:6px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .badge{
+      font-size:11px;
+      padding: 5px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(107,122,79,.28);
+      background: rgba(107,122,79,.12);
+      color: rgba(244,242,238,.86);
+      white-space:nowrap;
+    }
+    .badge.gold{
+      border-color: rgba(200,162,74,.28);
+      background: rgba(200,162,74,.12);
+    }
+
+    .stars{
+      display:flex;
+      gap:2px;
+      margin-top: 8px;
+      user-select:none;
+    }
+    .star{
+      font-size: 16px;
+      color: rgba(244,242,238,.22);
+      transition: transform .12s ease, color .12s ease;
+      cursor:pointer;
+    }
+    .star.active{ color: var(--gold); }
+    .star:hover{ transform: translateY(-1px); }
+
+    .empty{
+      padding: 14px;
+      border-radius: 16px;
+      border: 1px dashed rgba(250,247,242,.22);
+      color: var(--muted);
+      text-align:center;
+    }
+
+    /* ===== Add form ===== */
+    .addPanel{
+      margin-top: 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(250,247,242,.14);
+      background: rgba(250,247,242,.08);
+      padding: 12px;
+      display:grid;
+      grid-template-columns: 1.3fr .6fr .6fr 1.2fr;
+      gap:10px;
+    }
+    @media (max-width: 900px){ .addPanel{grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px){ .addPanel{grid-template-columns: 1fr; } }
+
+    .field{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .label{
+      font-size:12px;
+      color: var(--muted);
+    }
+    .input2, .select2, .textarea{
+      border: 1px solid rgba(250,247,242,.18);
+      background: rgba(0,0,0,.20);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 10px 10px;
+      outline:none;
+    }
+    .textarea{ min-height: 42px; resize: vertical; }
+    .addActions{
+      grid-column: 1 / -1;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      margin-top: 6px;
+    }
+
+    /* ===== Modal ===== */
+    .modalWrap{
+      position: fixed;
+      inset:0;
+      display:none;
+      place-items:center;
+      z-index: 9999;
+      padding: 18px;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .modalWrap.show{ display:grid; }
+
+    .modal{
+      width: min(980px, 100%);
+      border-radius: 24px;
+      border: 1px solid rgba(250,247,242,.18);
+      background: rgba(15,19,12,.78);
+      box-shadow: 0 30px 90px rgba(0,0,0,.60);
+      overflow:hidden;
+    }
+    .modalTop{
+      display:grid;
+      grid-template-columns: 340px 1fr;
+      gap:0;
+    }
+    @media (max-width: 860px){ .modalTop{grid-template-columns: 1fr;} }
+
+    .modalPoster{
+      width:100%;
+      height: 100%;
+      min-height: 420px;
+      object-fit: cover;
+      display:block;
+      filter: saturate(1.03) contrast(1.05);
+    }
+    .modalInfo{
+      padding: 16px 16px 14px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .modalInfo h3{
+      margin:0;
+      font-family:"Playfair Display",serif;
+      font-size: 26px;
+      color: rgba(244,242,238,.95);
+      letter-spacing:.2px;
+      line-height:1.15;
+    }
+    .modalInfo .sub{
+      color: var(--muted);
+      line-height:1.8;
+      font-size:14px;
+    }
+    .modalBar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 6px;
+    }
+    .modalBtns{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .danger{
+      border-color: rgba(230,80,80,.30) !important;
+      background: rgba(230,80,80,.12) !important;
+      color: rgba(244,242,238,.92) !important;
+    }
+
+    /* ===== Toast ===== */
+    .toast{
+      position: fixed;
+      left: 18px;
+      bottom: 18px;
+      background: rgba(250,247,242,.12);
+      border: var(--border);
+      box-shadow: var(--shadow);
+      border-radius: 999px;
+      padding: 10px 14px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      opacity:0;
+      transform: translateY(8px);
+      transition: opacity .25s ease, transform .25s ease;
+      pointer-events:none;
+      max-width: calc(100vw - 36px);
+      z-index: 99999;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .toast.show{opacity:1; transform: translateY(0);}
+    .tDot{
+      width:8px;height:8px;border-radius:50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 3px rgba(200,162,74,.16);
+      flex:0 0 auto;
+    }
+    .toast small{color: var(--muted);}
+
+    /* focus ring */
+    .btn:focus-visible, .input:focus-visible, .select:focus-visible, .input2:focus-visible, .select2:focus-visible, .textarea:focus-visible{
+      outline:none;
+      box-shadow: var(--ring), var(--shadow2);
+      border-color: rgba(200,162,74,.28);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- OPTIONAL: put your cinema background video here -->
+  <!-- If you don't want video background, delete the <video> line below -->
+  <video class="bgVideo" autoplay muted loop playsinline preload="auto">
+    <source src="pics/wallpaper1.mp4" type="video/mp4">
+  </video>
+  <div class="bgOverlay" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">LOMLA Cinema</div>
+        <div class="tag"> Gold • Romantic Movieshelf 🎞️</div>
+      </div>
+      <div class="actions">
+        <a class="btn" href="index.html">← Home</a>
+        <button class="btn" id="exportBtn" type="button">⬇ Export</button>
+        <button class="btn" id="resetBtn" type="button">↩ Reset</button>
+        <button class="btn primary" id="addQuickBtn" type="button">＋ Add</button>
+      </div>
+    </header>
+
+    <section class="hero" aria-label="Cinema page">
+      <div class="heroRow">
+        <div class="heroTitle">
+          <h1>🎬 Our Cinema List</h1>
+          <p>
+            Watched together 🤍 + our future watchlist 🍿 — with posters, notes, and star ratings.
+            Everything saves on this device.
+          </p>
+        </div>
+
+        <div class="controls" role="group" aria-label="Search and sort">
+          <input class="input" id="q" placeholder="Search title…" />
+          <select class="select" id="filter">
+            <option value="all">All</option>
+            <option value="watched">Watched Together</option>
+            <option value="future">Want To Watch</option>
+          </select>
+          <select class="select" id="sort">
+            <option value="new">Newest</option>
+            <option value="rating">Top Rated</option>
+            <option value="az">A → Z</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="sectionGrid">
+        <div class="section" id="secWatched">
+          <div class="sectionHead">
+            <h2>🤍 Watched Together</h2>
+            <span class="pill"><span class="dot"></span> moments we share</span>
+          </div>
+          <div class="grid" id="watchedGrid"></div>
+          <div class="empty" id="watchedEmpty" style="display:none">No items here yet.</div>
+        </div>
+
+        <div class="section" id="secFuture">
+          <div class="sectionHead">
+            <h2>🍿 Want To Watch Together</h2>
+            <span class="pill"><span class="dot"></span> future nights</span>
+          </div>
+          <div class="grid" id="futureGrid"></div>
+          <div class="empty" id="futureEmpty" style="display:none">No items here yet.</div>
+<!-- Suggestion Box (Future only) -->
+<div class="addPanel" id="suggestPanel" style="margin-top:12px;">
+  <div class="field">
+    <div class="label">Suggest a title *</div>
+    <input class="input2" id="sTitle" placeholder="Write a movie/series name…" />
+  </div>
+
+  <div class="field">
+    <div class="label">Year (optional)</div>
+    <input class="input2" id="sYear" placeholder="2014" />
+  </div>
+
+  <div class="field">
+    <div class="label">Type</div>
+    <select class="select2" id="sType">
+      <option value="movie">Movie</option>
+      <option value="series">Series</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <div class="label">Your rating (optional)</div>
+    <div class="stars" id="sStars" aria-label="suggest rating"></div>
+  </div>
+
+  <div class="field" style="grid-column:1/-1">
+    <div class="label">Why this one?</div>
+    <textarea class="textarea" id="sNotes" placeholder="A tiny reason… 🍿"></textarea>
+  </div>
+
+  <div class="addActions">
+    <button class="btn primary" id="sSave" type="button">Suggest ✨</button>
+  </div>
+</div>
+
+          <!-- Add form -->
+          <div class="addPanel" id="addPanel" style="display:none">
+            <div class="field">
+              <div class="label">Title *</div>
+              <input class="input2" id="fTitle" placeholder="e.g. Inception" />
+            </div>
+            <div class="field">
+              <div class="label">Year</div>
+              <input class="input2" id="fYear" placeholder="2010" />
+            </div>
+            <div class="field">
+              <div class="label">Type</div>
+              <select class="select2" id="fType">
+                <option value="movie">Movie</option>
+                <option value="series">Series</option>
+              </select>
+            </div>
+            <div class="field">
+              <div class="label">Poster URL / Path</div>
+              <input class="input2" id="fPoster" placeholder='pics/posters/inception.jpg OR https://...' />
+            </div>
+            <div class="field" style="grid-column:1/-1">
+              <div class="label">Notes</div>
+              <textarea class="textarea" id="fNotes" placeholder="Why we want to watch it…"></textarea>
+            </div>
+            <div class="addActions">
+              <button class="btn" id="cancelAdd" type="button">Cancel</button>
+              <button class="btn primary" id="saveAdd" type="button">Save ✨</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Modal -->
+  <div class="modalWrap" id="modalWrap" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Movie details">
+      <div class="modalTop">
+        <img class="modalPoster" id="mPoster" alt="poster">
+        <div class="modalInfo">
+          <h3 id="mTitle">—</h3>
+          <div class="meta" id="mMeta">—</div>
+          <div class="sub" id="mNotes">—</div>
+
+          <div class="modalBar">
+            <div>
+              <div style="color:var(--muted); font-size:12px; margin-bottom:6px;">Rating</div>
+              <div class="stars" id="mStars"></div>
+            </div>
+            <div class="modalBtns">
+              <button class="btn" id="moveBtn" type="button">Move</button>
+              <button class="btn danger" id="deleteBtn" type="button">Delete</button>
+              <button class="btn primary" id="closeModal" type="button">Close</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <span class="tDot"></span>
+    <div style="min-width:0">
+      <div id="toastTitle" style="font-weight:600;color:rgba(244,242,238,.92)">—</div>
+      <small id="toastMsg">—</small>
+    </div>
+  </div>
+
+<script>
+/* =============================
+   1) Posters mapping (LOCAL)
+   Put your real posters in: pics/posters/
+   Then keep these filenames (or edit paths).
+============================= */
+const POSTERS = {
+  "all of us are dead": "pics/all of us are dead.png",
+  "taxi driver": "pics/taxi.png",
+  "twenty five twenty one": "pics/tw.png",
+  "true beauty": "pics/true.png",
+  "from": "pics/from.png",
+  "stranger things": "pics/stranger.png",
+  "the pursuit of happiness": "pics/the pur.png",
+  "interstellar": "pics/inters.png",
+  "titanic": "pics/titanic.png",
+  "mad max:fury road": "pics/madmax.png",
+
+  "nineteen to twenty": "pics/nineteen.png",
+    "zootopia2": "pics/zootopia.png",
+  "inception": "pics/inception.png",
+  "eternal sunshine of spotless mind": "pics/enternal.png",
+  "before sunrise": "pics/before.png",
+  "before sunset": "pics/sunset.png",
+  "before midnight": "pics/midnight.png",
+};
+
+/* fallback poster if not found */
+const FALLBACK_POSTER = "pics/posters/fallback.jpg"; // حط صورة fallback عندك أو خليه فاضي
+
+/* =============================
+   2) Seed data (your lists)
+============================= */
+const SEED = [
+  { title:"all of us are dead", type:"series", status:"watched" },
+  { title:"taxi driver", type:"movie", status:"watched" },
+  { title:"twenty five twenty one", type:"series", status:"watched" },
+  { title:"true beauty", type:"series", status:"watched" },
+  { title:"from", type:"series", status:"watched" },
+  { title:"stranger things", type:"series", status:"watched" },
+  { title:"the pursuit of happiness", type:"movie", status:"watched" },
+  { title:"interstellar", type:"movie", status:"watched" },
+  { title:"titanic", type:"movie", status:"watched" },
+  { title:"mad max:fury road", type:"movie", status:"watched" },
+
+  { title:"nineteen to twenty", type:"series", status:"future" },
+    { title:"zootopia2", type:"movie", status:"future" },
+  { title:"inception", type:"movie", status:"future" },
+  { title:"eternal sunshine of spotless mind", type:"movie", status:"future" },
+  { title:"before sunrise", type:"movie", status:"future" },
+  { title:"before sunset", type:"movie", status:"future" },
+  { title:"before midnight", type:"movie", status:"future" },
+].map(x => ({
+  id: cryptoRandomId(),
+  title: x.title,
+  year: "",
+  type: x.type,
+  status: x.status,
+  rating: 0,
+  notes: "",
+  poster: POSTERS[x.title] || ""
+}));
+
+const KEY = "lomla_cinema_v2";
+
+/* =============================
+   3) State load/save
+============================= */
+function loadState(){
+  const raw = localStorage.getItem(KEY);
+  if(!raw) return [...SEED];
+  try{
+    const parsed = JSON.parse(raw);
+    if(!Array.isArray(parsed)) return [...SEED];
+    return parsed;
+  }catch(e){
+    return [...SEED];
+  }
+}
+function saveState(){
+  localStorage.setItem(KEY, JSON.stringify(state));
+}
+
+let state = loadState();
+
+/* =============================
+   4) UI helpers
+============================= */
+const $ = (id) => document.getElementById(id);
+
+const els = {
+  watchedGrid: $("watchedGrid"),
+  futureGrid: $("futureGrid"),
+  watchedEmpty: $("watchedEmpty"),
+  futureEmpty: $("futureEmpty"),
+
+  q: $("q"),
+  filter: $("filter"),
+  sort: $("sort"),
+
+  addQuickBtn: $("addQuickBtn"),
+  addPanel: $("addPanel"),
+  cancelAdd: $("cancelAdd"),
+  saveAdd: $("saveAdd"),
+  fTitle: $("fTitle"),
+  fYear: $("fYear"),
+  fType: $("fType"),
+  fPoster: $("fPoster"),
+  fNotes: $("fNotes"),
+
+  exportBtn: $("exportBtn"),
+  resetBtn: $("resetBtn"),
+
+  modalWrap: $("modalWrap"),
+  mPoster: $("mPoster"),
+  mTitle: $("mTitle"),
+  mMeta: $("mMeta"),
+  mNotes: $("mNotes"),
+  mStars: $("mStars"),
+  moveBtn: $("moveBtn"),
+  deleteBtn: $("deleteBtn"),
+  closeModal: $("closeModal"),
+
+  toast: $("toast"),
+  toastTitle: $("toastTitle"),
+  toastMsg: $("toastMsg"),
+  sTitle: $("sTitle"),
+sYear: $("sYear"),
+sType: $("sType"),
+sStars: $("sStars"),
+sNotes: $("sNotes"),
+sSave: $("sSave"),
+
+};
+
+
+
+function toast(t,m){
+  els.toastTitle.textContent = t;
+  els.toastMsg.textContent = m;
+  els.toast.classList.add("show");
+  clearTimeout(window.__toastT);
+  window.__toastT = setTimeout(()=>els.toast.classList.remove("show"), 2400);
+}
+
+function normalizeTitle(t){
+  return (t||"").trim().toLowerCase();
+}
+
+function posterFor(item){
+  return item.poster || POSTERS[normalizeTitle(item.title)] || FALLBACK_POSTER || "";
+}
+
+function cryptoRandomId(){
+  return Math.random().toString(16).slice(2) + Date.now().toString(16);
+}
+
+/* =============================
+   5) Render
+============================= */
+function applyQueryAndSort(list){
+  const q = (els.q.value || "").trim().toLowerCase();
+  const filter = els.filter.value;
+  const sort = els.sort.value;
+
+  let out = list.filter(x => {
+    const matchQ = !q || (x.title||"").toLowerCase().includes(q);
+    const matchF = filter === "all" || x.status === filter;
+    return matchQ && matchF;
+  });
+
+  if(sort === "rating"){
+    out.sort((a,b) => (b.rating||0) - (a.rating||0) || (a.title||"").localeCompare(b.title||""));
+  }else if(sort === "az"){
+    out.sort((a,b) => (a.title||"").localeCompare(b.title||""));
+  }else{ // newest
+    out.sort((a,b) => (b.createdAt||0) - (a.createdAt||0));
+  }
+
+  return out;
+}
+
+function cardEl(item){
+  const card = document.createElement("div");
+  card.className = "card";
+  card.dataset.id = item.id;
+
+  const title = item.title || "Untitled";
+  const year = item.year ? ` • ${item.year}` : "";
+  const typeLabel = item.type === "series" ? "Series" : "Movie";
+  const statusLabel = item.status === "watched" ? "Watched" : "Future";
+  const poster = posterFor(item);
+
+  card.innerHTML = `
+    <img class="poster" src="${poster}" alt="${escapeHtml(title)} poster"
+         onerror="this.onerror=null; this.src='${FALLBACK_POSTER || ""}'">
+    <div class="cardBody">
+      <div class="titleLine">
+        <div class="tTitle">${escapeHtml(title)}</div>
+      </div>
+      <div class="meta">
+        <span class="badge">${typeLabel}</span>
+        <span class="badge gold">${statusLabel}${year}</span>
+      </div>
+      <div class="stars" aria-label="rating">
+        ${[1,2,3,4,5].map(n => `
+          <span class="star ${item.rating>=n?'active':''}" data-star="${n}" title="${n} stars">★</span>
+        `).join("")}
+      </div>
+    </div>
+  `;
+
+  // star rating in grid
+  const stars = card.querySelectorAll(".star");
+  stars.forEach(s => {
+    s.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const n = Number(s.dataset.star || 0);
+      setRating(item.id, n);
+    });
+  });
+
+  // open modal
+  card.addEventListener("click", () => openModal(item.id));
+  return card;
+}
+const sTitle = document.getElementById("sTitle");
+const sYear  = document.getElementById("sYear");
+const sType  = document.getElementById("sType");
+const sStars = document.getElementById("sStars");
+const sNotes = document.getElementById("sNotes");
+const sSave  = document.getElementById("sSave");
+
+let suggestRating = 0;
+
+function renderSuggestStars(){
+  sStars.innerHTML = "";
+  [1,2,3,4,5].forEach(n=>{
+    const sp = document.createElement("span");
+    sp.className = "star" + (suggestRating >= n ? " active" : "");
+    sp.textContent = "★";
+    sp.addEventListener("click", ()=>{
+      suggestRating = n;
+      renderSuggestStars();
+    });
+    sStars.appendChild(sp);
+  });
+}
+renderSuggestStars();
+
+sSave.addEventListener("click", () => {
+  const title = (sTitle.value || "").trim();
+  if(!title){ alert("اكتب اسم الفيلم أولاً"); sTitle.focus(); return; }
+
+  // ✅ هنا لازم يكون عندك دالة addItem مثل ما بنيناها بالصفحة
+  addItem({
+    title,
+    year: sYear.value,
+    type: sType.value,
+    status: "future",
+    notes: sNotes.value,
+    poster: ""
+  });
+
+  // إذا عندك state array
+  if(typeof state !== "undefined" && state[0] && suggestRating>0){
+    state[0].rating = suggestRating;
+    saveState();
+  }
+
+  sTitle.value=""; sYear.value=""; sType.value="movie"; sNotes.value="";
+  suggestRating = 0;
+  renderSuggestStars();
+
+  render(); // يعيد رسم الصفحة
+});
+
+
+function render(){
+  els.watchedGrid.innerHTML = "";
+  els.futureGrid.innerHTML = "";
+
+  const view = applyQueryAndSort([...state]);
+
+  const watched = view.filter(x => x.status === "watched");
+  const future  = view.filter(x => x.status === "future");
+
+  watched.forEach(x => els.watchedGrid.appendChild(cardEl(x)));
+  future.forEach(x => els.futureGrid.appendChild(cardEl(x)));
+
+  els.watchedEmpty.style.display = watched.length ? "none" : "block";
+  els.futureEmpty.style.display  = future.length ? "none" : "block";
+}
+
+/* =============================
+   6) Actions
+============================= */
+function setRating(id, rating){
+  const item = state.find(x => x.id === id);
+  if(!item) return;
+  item.rating = rating;
+  saveState();
+  render();
+  toast("Rating Saved", `${item.title} → ${rating}/5 ⭐`);
+}
+
+function addItem(payload){
+  const title = (payload.title||"").trim();
+  if(!title){
+    toast("Missing Title", "Write a title first ✍️");
+    return;
+  }
+  const item = {
+    id: cryptoRandomId(),
+    createdAt: Date.now(),
+    title,
+    year: (payload.year||"").trim(),
+    type: payload.type || "movie",
+    status: payload.status || "future",
+    rating: 0,
+    notes: (payload.notes||"").trim(),
+    poster: (payload.poster||"").trim(),
+  };
+  state.unshift(item);
+  saveState();
+  render();
+  toast("Added ✨", `"${title}" added to ${item.status === "watched" ? "Watched" : "Future"} list`);
+}
+
+function resetAll(){
+  localStorage.removeItem(KEY);
+  state = [...SEED];
+  saveState();
+  render();
+  toast("Reset", "Back to the original list ↩");
+}
+
+function exportJSON(){
+  const data = JSON.stringify(state, null, 2);
+  navigator.clipboard.writeText(data).then(()=>{
+    toast("Exported", "Copied JSON to clipboard ✅");
+  }).catch(()=>{
+    toast("Export", "Copy failed — but you can manually copy from console.");
+    console.log(data);
+  });
+}
+
+/* =============================
+   7) Modal
+============================= */
+let currentId = null;
+
+function openModal(id){
+  const item = state.find(x => x.id === id);
+  if(!item) return;
+  currentId = id;
+
+  els.mPoster.src = posterFor(item);
+  els.mPoster.onerror = () => { if(FALLBACK_POSTER) els.mPoster.src = FALLBACK_POSTER; };
+
+  els.mTitle.textContent = item.title || "Untitled";
+
+  const typeLabel = item.type === "series" ? "Series" : "Movie";
+  const statusLabel = item.status === "watched" ? "Watched Together" : "Want To Watch";
+  const year = item.year ? ` • ${item.year}` : "";
+  els.mMeta.innerHTML = `
+    <span class="badge">${typeLabel}</span>
+    <span class="badge gold">${statusLabel}${year}</span>
+  `;
+
+  els.mNotes.textContent = item.notes ? item.notes : "No notes yet…";
+
+  // modal stars
+  els.mStars.innerHTML = "";
+  [1,2,3,4,5].forEach(n => {
+    const sp = document.createElement("span");
+    sp.className = "star" + ((item.rating||0) >= n ? " active" : "");
+    sp.textContent = "★";
+    sp.title = `${n} stars`;
+    sp.addEventListener("click", () => setRating(item.id, n));
+    els.mStars.appendChild(sp);
+  });
+
+  els.moveBtn.textContent = item.status === "watched" ? "Move to Future" : "Move to Watched";
+  els.modalWrap.classList.add("show");
+  els.modalWrap.setAttribute("aria-hidden","false");
+}
+
+function closeModal(){
+  els.modalWrap.classList.remove("show");
+  els.modalWrap.setAttribute("aria-hidden","true");
+  currentId = null;
+}
+
+function moveCurrent(){
+  const item = state.find(x => x.id === currentId);
+  if(!item) return;
+  item.status = item.status === "watched" ? "future" : "watched";
+  saveState();
+  render();
+  openModal(item.id); // refresh modal view
+  toast("Moved", `${item.title} moved ✅`);
+}
+
+function deleteCurrent(){
+  const item = state.find(x => x.id === currentId);
+  if(!item) return;
+  state = state.filter(x => x.id !== currentId);
+  saveState();
+  render();
+  closeModal();
+  toast("Deleted", `${item.title} removed 🗑`);
+}
+
+/* =============================
+   8) Wire up events
+============================= */
+els.q.addEventListener("input", render);
+els.filter.addEventListener("change", render);
+els.sort.addEventListener("change", render);
+
+els.addQuickBtn.addEventListener("click", () => {
+  els.addPanel.style.display = els.addPanel.style.display === "none" ? "grid" : "none";
+  if(els.addPanel.style.display !== "none"){
+    setTimeout(()=>els.fTitle.focus(), 60);
+  }
+});
+
+els.cancelAdd.addEventListener("click", () => {
+  els.addPanel.style.display = "none";
+});
+
+els.saveAdd.addEventListener("click", () => {
+  addItem({
+    title: els.fTitle.value,
+    year: els.fYear.value,
+    type: els.fType.value,
+    status: "future",
+    poster: els.fPoster.value,
+    notes: els.fNotes.value,
+  });
+  els.fTitle.value = "";
+  els.fYear.value = "";
+  els.fPoster.value = "";
+  els.fNotes.value = "";
+  els.fType.value = "movie";
+  els.addPanel.style.display = "none";
+});
+
+els.exportBtn.addEventListener("click", exportJSON);
+els.resetBtn.addEventListener("click", resetAll);
+
+els.closeModal.addEventListener("click", closeModal);
+els.moveBtn.addEventListener("click", moveCurrent);
+els.deleteBtn.addEventListener("click", deleteCurrent);
+
+els.modalWrap.addEventListener("click", (e) => {
+  if(e.target === els.modalWrap) closeModal();
+});
+window.addEventListener("keydown", (e) => {
+  if(e.key === "Escape") closeModal();
+});
+
+function escapeHtml(str){
+  return (str||"").replace(/[&<>"']/g, (m)=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[m]));
+}
+
+/* init */
+render();
+toast("Cinema Ready 🎬", "Add posters in pics/posters for the real vibe ✨");
+</script>
+</body>
+</html>

@@ -1,0 +1,988 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LOMLA.land — Home</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --olive-deep:#6B7A4F;
+      --olive-soft:#A8B18F;
+      --cream:#FAF7F2;
+      --blush:#E6CFC2;
+      --gold:#C8A24A;
+
+      --text:#1f2418;
+      --muted:#5a5f50;
+
+      --r-lg:18px;
+      --r-md:14px;
+
+      --shadow: 0 10px 30px rgba(0,0,0,.06);
+      --shadow-sm: 0 6px 18px rgba(0,0,0,.05);
+      --border: 1px solid rgba(107,122,79,.18);
+
+      --bg-panel: rgba(250,247,242,.78);
+      --bg-panel-strong: rgba(250,247,242,.86);
+      --bg-btn2: rgba(250,247,242,.78);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{min-height:100vh}
+
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+      color:var(--text);
+      background:#0f130c; /* fallback */
+    }
+
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:1100px; margin:0 auto; padding:24px 18px 50px}
+
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; padding:10px 6px 18px;
+    }
+    .brand{
+      display:flex; align-items:baseline; gap:10px;
+      font-family: "Playfair Display", serif;
+      letter-spacing:.4px;
+    }
+    .brand .logo{
+      font-size:26px; font-weight:600;
+      color:var(--olive-deep);
+    }
+    .brand .tag{
+      font-family: Inter, sans-serif;
+      font-size:12px; color:var(--muted);
+      padding:6px 10px; border-radius:999px;
+      border:var(--border);
+      background:var(--bg-btn2);
+      backdrop-filter: blur(6px);
+    }
+
+    .actions{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+    .btn{
+      border:var(--border);
+      background: var(--bg-panel);
+      color:var(--olive-deep);
+      padding:10px 14px;
+      border-radius:999px;
+      box-shadow: var(--shadow-sm);
+      cursor:pointer;
+      display:inline-flex; align-items:center; gap:8px;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease;
+      user-select:none;
+    }
+    .btn:hover{transform: translateY(-1px); box-shadow: var(--shadow); border-color: rgba(107,122,79,.65);}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(107,122,79,.96), rgba(107,122,79,.86));
+      color: var(--cream);
+      border: 1px solid rgba(107,122,79,.55);
+    }
+    .btn.primary:hover{background: linear-gradient(135deg, rgba(107,122,79,1), rgba(107,122,79,.9));}
+
+    .icon-dot{
+      width:8px; height:8px; border-radius:50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 3px rgba(200,162,74,.18);
+    }
+
+    .hero{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:18px;
+      margin-top:6px;
+    }
+    @media (max-width: 900px){ .hero{grid-template-columns: 1fr;} }
+
+    .panel{
+      background: var(--bg-panel);
+      border: var(--border);
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow);
+      padding:18px;
+      backdrop-filter: blur(8px);
+    }
+
+    .hero h1{
+      margin:0 0 8px;
+      font-family:"Playfair Display", serif;
+      font-size:34px;
+      line-height:1.18;
+      color:var(--olive-deep);
+      letter-spacing:.2px;
+    }
+    .hero p{
+      margin:0 0 14px;
+      color:var(--muted);
+      line-height:1.8;
+      font-size:14.5px;
+    }
+    .subline{
+      display:flex; gap:10px; flex-wrap:wrap;
+      align-items:center;
+      margin-top:8px;
+    }
+    .pill{
+      font-size:12px;
+      padding:7px 10px;
+      border-radius:999px;
+      border: var(--border);
+      background: rgba(168,177,143,.10);
+      color: var(--olive-deep);
+      display:inline-flex; align-items:center; gap:8px;
+    }
+    .pill .tiny{
+      width:6px; height:6px; border-radius:50%;
+      background: var(--olive-deep);
+      opacity:.75;
+    }
+
+    .noteHeader{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+    }
+    .noteHeader .title{
+      display:flex; align-items:center; gap:10px;
+      font-weight:600; color: var(--olive-deep);
+    }
+    .note{
+      border-radius: var(--r-md);
+      border: 1px solid rgba(230,207,194,.6);
+      background: rgba(230,207,194,.22);
+      padding:14px;
+      line-height:1.9;
+      color:#2a2f22;
+      position:relative;
+      overflow:hidden;
+    }
+    .note:before{
+      content:"";
+      position:absolute; inset:-80px -60px auto auto;
+      width:220px; height:220px;
+      background: radial-gradient(circle at 30% 30%, rgba(200,162,74,.20), transparent 60%);
+      transform: rotate(18deg);
+      pointer-events:none;
+    }
+
+    .moods{
+      display:flex; gap:10px; flex-wrap:wrap;
+      align-items:center;
+      padding-top:4px;
+    }
+    .mood{
+      border:var(--border);
+      background: var(--bg-btn2);
+      border-radius: 999px;
+      padding:8px 10px;
+      cursor:pointer;
+      display:inline-flex; align-items:center; gap:8px;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
+      font-size:13px;
+      color: var(--olive-deep);
+      user-select:none;
+    }
+    .mood:hover{transform: translateY(-1px); border-color: rgba(107,122,79,.65); box-shadow: 0 0 0 3px rgba(107,122,79,.12);}
+    .mood.active{
+      background: rgba(107,122,79,.12);
+      border: 1px solid rgba(107,122,79,.35);
+    }
+    .mood .emoji{font-size:16px}
+    .moodSmall{
+      font-size:12px; color:var(--muted);
+      margin-top:6px;
+    }
+
+    .stats{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+      margin-top:14px;
+    }
+    @media (max-width: 900px){ .stats{grid-template-columns: 1fr;} }
+    .stat{
+      padding:14px;
+      border-radius: var(--r-lg);
+      border: var(--border);
+      background: var(--bg-btn2);
+      box-shadow: var(--shadow-sm);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .stat:hover{transform: translateY(-1px); border-color: rgba(107,122,79,.65); box-shadow: var(--shadow);}
+    .stat .k{
+      font-size:12px;
+      color: var(--muted);
+      margin-bottom:8px;
+      display:flex; align-items:center; gap:8px;
+    }
+    .stat .v{
+      font-family:"Playfair Display", serif;
+      font-size:26px;
+      color: var(--olive-deep);
+      margin:0;
+      letter-spacing:.2px;
+    }
+    .stat .hint{
+      margin-top:8px;
+      font-size:12px;
+      color: var(--muted);
+      line-height:1.6;
+    }
+
+    .gridNav{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+    }
+    @media (max-width: 900px){ .gridNav{grid-template-columns: 1fr;} }
+    .navCard{
+      padding:16px;
+      border-radius: var(--r-lg);
+      border: var(--border);
+      background: var(--bg-btn2);
+      box-shadow: var(--shadow-sm);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      position:relative;
+      overflow:hidden;
+      min-height: 92px;
+    }
+    .navCard:hover{
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+      border-color: rgba(107,122,79,.65);
+    }
+    .navCard .label{
+      font-weight:600; color: var(--olive-deep);
+      display:flex; align-items:center; gap:10px;
+      margin-bottom:6px;
+    }
+    .navCard .desc{
+      margin:0;
+      font-size:12.5px;
+      color: var(--muted);
+      line-height:1.7;
+    }
+    .navCard .corner{
+      position:absolute; inset:auto 14px 14px auto;
+      width:26px; height:26px; border-radius:12px;
+      border:1px solid rgba(200,162,74,.35);
+      background: rgba(200,162,74,.10);
+      display:grid; place-items:center;
+      color: var(--gold);
+      font-size:14px;
+    }
+
+    .cats{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    @media (max-width: 900px){ .cats{grid-template-columns: 1fr;} }
+    .catCard{
+      border-radius: var(--r-lg);
+      border: var(--border);
+      background: var(--bg-btn2);
+      box-shadow: var(--shadow-sm);
+      padding:16px;
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .catCard:hover{transform: translateY(-1px); box-shadow: var(--shadow); border-color: rgba(107,122,79,.65);}
+
+    .avatar{
+      width:44px; height:44px;
+      border-radius: 14px;
+      border:1px solid rgba(107,122,79,.25);
+      background:
+        radial-gradient(circle at 30% 30%, rgba(168,177,143,.35), transparent 55%),
+        radial-gradient(circle at 70% 70%, rgba(230,207,194,.28), transparent 55%),
+        rgba(250,247,242,.8);
+      display:grid; place-items:center;
+      overflow:hidden;
+      flex:0 0 auto;
+    }
+    .avatar img{
+      width:100%;
+      height:100%;
+      object-fit: contain;
+      image-rendering: pixelated;
+      transform: scale(1.08);
+    }
+
+    .catBody{flex:1}
+    .catName{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px;
+      margin-bottom:6px;
+    }
+    .catName b{
+      font-family:"Playfair Display", serif;
+      font-size:18px; color: var(--olive-deep);
+      letter-spacing:.2px;
+    }
+    .catName span{
+      font-size:12px; color:var(--muted);
+      border: 1px solid rgba(107,122,79,.18);
+      background: rgba(168,177,143,.10);
+      padding:6px 10px; border-radius:999px;
+    }
+    .catBody p{
+      margin:0;
+      font-size:12.5px;
+      color: var(--muted);
+      line-height:1.8;
+    }
+    .catActions{
+      margin-top:12px;
+      display:flex; gap:10px; flex-wrap:wrap;
+    }
+    .miniBtn{
+      border:var(--border);
+      background: var(--bg-btn2);
+      color: var(--olive-deep);
+      border-radius:999px;
+      padding:8px 10px;
+      cursor:pointer;
+      font-size:12.5px;
+      display:inline-flex; align-items:center; gap:8px;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      box-shadow: var(--shadow-sm);
+      user-select:none;
+    }
+    .miniBtn:hover{transform: translateY(-1px); box-shadow: var(--shadow); border-color: rgba(107,122,79,.65);}
+
+    .footer{
+      margin-top:18px;
+      color: rgba(90,95,80,.9);
+      font-size:12px;
+      display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
+      padding: 10px 6px 0;
+    }
+
+    .fadeUp{
+      opacity:0;
+      transform: translateY(10px);
+      animation: fadeUp .6s ease forwards;
+    }
+    .delay-1{animation-delay:.05s}
+    .delay-2{animation-delay:.12s}
+    .delay-3{animation-delay:.18s}
+    .delay-4{animation-delay:.24s}
+    @keyframes fadeUp{ to{opacity:1; transform: translateY(0);} }
+
+    .toast{
+      position: fixed;
+      left: 18px;
+      bottom: 18px;
+      background: var(--bg-panel-strong);
+      border: var(--border);
+      box-shadow: var(--shadow);
+      border-radius: 999px;
+      padding: 10px 14px;
+      display:flex; align-items:center; gap:10px;
+      opacity:0;
+      transform: translateY(8px);
+      transition: opacity .25s ease, transform .25s ease;
+      pointer-events:none;
+      max-width: calc(100vw - 36px);
+      z-index: 50;
+    }
+    .toast.show{opacity:1; transform: translateY(0);}
+    .toast small{color:var(--muted)}
+
+    /* ===== Fancy Password Screen (ALWAYS) ===== */
+    .gate{
+      position:fixed;
+      inset:0;
+      z-index:9999;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:22px;
+      background:
+        radial-gradient(900px 420px at 70% 0%, rgba(200,162,74,.16), transparent 62%),
+        radial-gradient(1000px 520px at 12% 18%, rgba(230,207,194,.20), transparent 60%),
+        radial-gradient(900px 520px at 92% 92%, rgba(168,177,143,.18), transparent 60%),
+        rgba(250,247,242,.55);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .gateCard{
+      width:min(560px, 100%);
+      background: rgba(250,247,242,.86);
+      border: 1px solid rgba(107,122,79,.22);
+      border-radius: 22px;
+      box-shadow: 0 24px 70px rgba(0,0,0,.26);
+      padding: 22px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    /* ========= FULL PAGE VIDEO BACKGROUND (FIXED) ========= */
+    .bgVideo{
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -10;
+      pointer-events: none;
+      filter: saturate(1.08) contrast(1.05) brightness(.88);
+    }
+
+    /* ========= CINEMATIC OVERLAY ========= */
+    .bgOverlay{
+      position: fixed;
+      inset: 0;
+      z-index: -9;
+      pointer-events: none;
+      background:
+        radial-gradient(900px 420px at 70% 0%, rgba(200,162,74,.22), transparent 62%),
+        radial-gradient(1000px 520px at 12% 18%, rgba(230,207,194,.26), transparent 60%),
+        radial-gradient(900px 520px at 92% 92%, rgba(168,177,143,.22), transparent 60%),
+        linear-gradient(180deg, rgba(15,19,12,.25), rgba(15,19,12,.55));
+    }
+
+    /* ========= CONTENT ABOVE VIDEO ========= */
+    .wrap, .toast{ position: relative; z-index: 1; }
+
+    /* Small cute click animation */
+    @keyframes pop {
+      0%{ transform: translateY(0) scale(1); }
+      50%{ transform: translateY(-1px) scale(1.04); }
+      100%{ transform: translateY(0) scale(1); }
+    }
+    .pop{ animation: pop .18s ease; }
+  </style>
+</head>
+
+<body>
+  <!-- Background video -->
+  <video class="bgVideo" autoplay muted loop playsinline preload="auto">
+    <source src="pics/wallpaper1.mp4" type="video/mp4">
+  </video>
+  <div class="bgOverlay" aria-hidden="true"></div>
+
+  <!-- Password gate -->
+  <div class="gate" id="gate" aria-label="Password gate">
+    <div class="gateCard fadeUp">
+      <div style="margin:0 0 16px;display:inline-flex;align-items:center;gap:8px;
+        padding:8px 12px;border-radius:999px;border:1px solid rgba(107,122,79,.22);
+        background:rgba(250,247,242,.75);color:var(--muted);font-size:13px;">
+        🐾 HUSISA & LIA are watching 👀
+      </div>
+
+      <h2 style="margin:0 0 8px;font-family:'Playfair Display',serif;color:var(--olive-deep);">Enter the secret word 🌙</h2>
+      <p style="margin:0 0 16px;color:var(--muted);line-height:1.8;font-size:14px;">
+        This little world is private.<br>
+        Type the secret word to unlock.
+      </p>
+
+      <form style="display:flex;gap:10px;flex-wrap:wrap" id="gateForm" autocomplete="off">
+        <input id="gateInput" type="password" placeholder="Secret word…"
+          style="flex:1 1 260px;border:1px solid rgba(107,122,79,.25);background:rgba(250,247,242,.92);
+          border-radius:999px;padding:12px 14px;outline:none;font-size:14px;color:var(--text);box-shadow:var(--shadow-sm);" />
+        <button class="btn primary" type="submit">Unlock ✨</button>
+        <button class="btn" type="button" id="gateClear">Clear</button>
+      </form>
+
+      <div id="gateError" style="display:none;margin-top:12px;border-radius:14px;border:1px solid rgba(230,207,194,.65);
+        background:rgba(230,207,194,.22);padding:10px 12px;color:#2a2f22;line-height:1.7;font-size:13px;">
+        Wrong secret word. Try again 🤍
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <header class="topbar fadeUp">
+      <div class="brand">
+        <div class="logo">LOMLA.land</div>
+        <div class="tag">Cute  • Private World</div>
+      </div>
+
+      <div class="actions">
+        <button class="btn" id="musicBtn" type="button">🎵 Music</button>
+        <a class="btn" href="catkingdom.html">🐾 Cat Kingdom</a>
+        <a class="btn" href="#cats" title="Go to Cat Corner">
+          <span class="icon-dot"></span> Cats
+        </a>
+        <a class="btn primary" href="secret.html" title="Secret Area">🔐 Secret</a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="panel fadeUp delay-1">
+        <h1>Welcome, Lomla 🌿</h1>
+        <p>
+          This isn’t just a website… it’s your “digital home”.
+          Calm, elegant — with a little hidden cute that makes you smile.
+        </p>
+
+        <div class="subline">
+          <span class="pill"><span class="tiny"></span> LIA & HUSISA approved 🐾</span>
+          <span class="pill"><span class="tiny"></span> 3 May 2021 • 12 Dec 2025 • 25 Dec 2025</span>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <div class="k">🕰 Since our first chat</div>
+            <p class="v" id="daysSinceChat">—</p>
+            <div class="hint">Since <b>3 May 2021</b> (Our First Chat)</div>
+          </div>
+          <div class="stat">
+            <div class="k">🤍 Since we came back</div>
+            <p class="v" id="daysSinceBack">—</p>
+            <div class="hint">Since <b>12 Dec 2025</b> (We came back)</div>
+          </div>
+          <div class="stat">
+            <div class="k">🎄 Since our first date</div>
+            <p class="v" id="daysSinceDate">—</p>
+            <div class="hint">Since <b>25 Dec 2025</b> (First Date)</div>
+          </div>
+        </div>
+
+        <div style="margin-top:14px">
+          <div class="noteHeader">
+            <div class="title">💌 Today’s Note</div>
+            <button class="btn" id="newNoteBtn" type="button">Change ✨</button>
+          </div>
+          <div class="note" id="todaysNote">—</div>
+
+          <div class="moods" style="margin-top:12px">
+            <div style="font-weight:600;color:var(--olive-deep); margin-right:8px;">Your mood today:</div>
+            <button class="mood" data-mood="calm"><span class="emoji">🌿</span> Calm</button>
+            <button class="mood" data-mood="happy"><span class="emoji">✨</span> Happy</button>
+            <button class="mood" data-mood="miss"><span class="emoji">🤍</span> Missing</button>
+            <button class="mood" data-mood="tired"><span class="emoji">☕</span> Tired</button>
+            <button class="mood" data-mood="focus"><span class="emoji">📐</span> Focused</button>
+          </div>
+          <div class="moodSmall" id="moodHint">Pick a mood — it will be saved on this device.</div>
+        </div>
+      </div>
+
+      <aside class="panel fadeUp delay-2">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
+          <div style="font-weight:700; color:var(--olive-deep)">Sections</div>
+          <span class="pill" title="Soft Luxury Motion"><span class="tiny"></span> smooth</span>
+        </div>
+
+        <div class="gridNav">
+          <a class="navCard" href="story.html">
+            <div class="label">🕰 Our Story</div>
+            <p class="desc">An elegant timeline of your key milestones.</p>
+            <div class="corner">›</div>
+          </a>
+
+          <a class="navCard" href="letter.html">
+            <div class="label">💌 Love Letter</div>
+            <p class="desc">A sealed envelope… a letter that opens softly.</p>
+            <div class="corner">›</div>
+          </a>
+
+          <a class="navCard" href="cinema.html">
+            <div class="label">🎬 Cinema</div>
+            <p class="desc">Movies & series we watched + future list + ratings.</p>
+            <div class="corner">›</div>
+          </a>
+
+          <a class="navCard" href="playlist.html">
+            <div class="label">🎵 Playlist</div>
+            <p class="desc">Spotify + Taylor Mode + notes for songs.</p>
+            <div class="corner">›</div>
+          </a>
+
+          <a class="navCard" href="catkingdom.html">
+            <div class="label">🐾 Cat Kingdom</div>
+            <p class="desc">LIA & HUSISA — a royal corner for the cats.</p>
+            <div class="corner">›</div>
+          </a>
+
+          <a class="navCard" href="secret.html">
+            <div class="label">🔐 Secret</div>
+            <p class="desc">A fun password + cute little surprises.</p>
+            <div class="corner">›</div>
+          </a>
+        </div>
+
+        <div class="footer">
+          <span>LOMLA.land</span>
+          <span style="color:var(--muted)"> Cute–Luxury</span>
+        </div>
+      </aside>
+    </section>
+
+    <section id="cats" class="panel fadeUp delay-3" style="margin-top:18px">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
+        <div style="font-weight:700; color:var(--olive-deep)">🐾 Cat Corner</div>
+        <span class="pill"><span class="tiny"></span> meow-friendly</span>
+      </div>
+
+      <div class="cats">
+        <div class="catCard">
+          <div class="avatar" aria-hidden="true">
+            <img src="pics/lia.png.png" alt="LIA pixel cat" />
+          </div>
+          <div class="catBody">
+            <div class="catName">
+              <b>LIA</b>
+              <span>Himalayan Queen</span>
+            </div>
+            <p>A calm queen… elegant presence, with “hidden cute” that still shows.</p>
+            <div class="catActions">
+              <button class="miniBtn" data-meow="LIA" type="button">😼 Meow</button>
+              <button class="miniBtn" data-fact="LIA" type="button">🌿 Fact</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="catCard">
+          <div class="avatar" aria-hidden="true">
+            <img src="pics/husisa.png.png" alt="HUSISA pixel cat" />
+          </div>
+          <div class="catBody">
+            <div class="catName">
+              <b>HUSISA</b>
+              <span>The Guardian Cat</span>
+            </div>
+            <p>The official guardian… and if she’s mad? nobody comes close 😌</p>
+            <div class="catActions">
+              <button class="miniBtn" data-meow="HUSISA" type="button">😺 Meow</button>
+              <button class="miniBtn" data-fact="HUSISA" type="button">✨ Fact</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer" style="margin-top:18px">
+      <span>© <span id="yearNow"></span> • Made for Lomla 🌿</span>
+      <span style="color:var(--muted)">Next: story.html → timeline</span>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <span class="icon-dot"></span>
+    <div>
+      <div id="toastTitle" style="font-weight:600; color:var(--olive-deep)">—</div>
+      <small id="toastMsg">—</small>
+    </div>
+  </div>
+
+  <!-- Background music -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="assets/music2.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Cat sounds (PUT THESE FILES IN /assets/) -->
+  <audio id="meowLia" preload="auto">
+    <source src="assets/meow_lia.mp3" type="audio/mpeg">
+  </audio>
+
+  <audio id="meowHusisa" preload="auto">
+    <source src="assets/meow_husisa.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    /* =========================
+       PASSWORD GATE
+    ========================= */
+    const PASSWORD = "ytst";
+    const gate = document.getElementById("gate");
+    const gateForm = document.getElementById("gateForm");
+    const gateInput = document.getElementById("gateInput");
+    const gateError = document.getElementById("gateError");
+    const gateClear = document.getElementById("gateClear");
+
+    function unlockGate(){ gate.style.display = "none"; }
+    setTimeout(() => gateInput.focus(), 60);
+
+    gateClear.addEventListener("click", () => {
+      gateInput.value = "";
+      gateError.style.display = "none";
+      gateInput.focus();
+    });
+
+    gateForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const entered = (gateInput.value || "").trim();
+      if (entered === PASSWORD) {
+        gateError.style.display = "none";
+        unlockGate();
+      } else {
+        gateError.style.display = "block";
+        gateInput.select();
+      }
+    });
+
+    /* =========================
+       TOAST
+    ========================= */
+    const els = {
+      toast: document.getElementById('toast'),
+      toastTitle: document.getElementById('toastTitle'),
+      toastMsg: document.getElementById('toastMsg'),
+      daysSinceChat: document.getElementById('daysSinceChat'),
+      daysSinceBack: document.getElementById('daysSinceBack'),
+      daysSinceDate: document.getElementById('daysSinceDate'),
+      todaysNote: document.getElementById('todaysNote'),
+      newNoteBtn: document.getElementById('newNoteBtn'),
+      moodHint: document.getElementById('moodHint'),
+      yearNow: document.getElementById('yearNow'),
+    };
+
+    function toast(title, msg){
+      els.toastTitle.textContent = title;
+      els.toastMsg.textContent = msg;
+      els.toast.classList.add('show');
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => els.toast.classList.remove('show'), 2600);
+    }
+
+    /* =========================
+       DATE COUNTERS
+    ========================= */
+    const D_FIRST_CHAT = new Date(2021, 4, 3);
+    const D_COMEBACK   = new Date(2025, 11, 12);
+    const D_FIRST_DATE = new Date(2025, 11, 25);
+
+    function daysBetween(fromDate, toDate){
+      const a = new Date(fromDate.getFullYear(), fromDate.getMonth(), fromDate.getDate());
+      const b = new Date(toDate.getFullYear(), toDate.getMonth(), toDate.getDate());
+      return Math.floor((b - a) / (1000 * 60 * 60 * 24));
+    }
+
+    function updateCounters(){
+      const now = new Date();
+      els.daysSinceChat.textContent = `${Math.max(0, daysBetween(D_FIRST_CHAT, now))} days`;
+      els.daysSinceBack.textContent = `${Math.max(0, daysBetween(D_COMEBACK, now))} days`;
+      els.daysSinceDate.textContent = `${Math.max(0, daysBetween(D_FIRST_DATE, now))} days`;
+      els.yearNow.textContent = now.getFullYear();
+    }
+
+    /* =========================
+       DAILY NOTE
+    ========================= */
+    const NOTES = [
+      "If today feels calm… remember: your calm is beautiful by itself. 🌿",
+      "Some people waste time… you create meaning. ✨",
+      "Today, take a small step — steady steps build the best plans. 📐",
+      "I’m proud of you, even on the days you don’t feel strong. 🤍",
+      "Remember: coming back wasn’t a coincidence… it was a choice. 🔁",
+      "Every memory has a place… like a tiny home we keep in our hearts. 🏡",
+      "Don’t forget to smile… your smile changes the whole day. ☀️"
+    ];
+
+    function daySeedKey(d){
+      return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    }
+    function seededIndex(seedStr, mod){
+      let h = 2166136261;
+      for (let i=0; i<seedStr.length; i++){
+        h ^= seedStr.charCodeAt(i);
+        h = Math.imul(h, 16777619);
+      }
+      return Math.abs(h) % mod;
+    }
+
+    function setTodaysNote(forceNew=false){
+      const today = new Date();
+      const key = daySeedKey(today);
+      let idx = seededIndex(key, NOTES.length);
+
+      if(forceNew){
+        const manualKey = "lomla_note_manual_offset";
+        const prev = Number(localStorage.getItem(manualKey) || "0");
+        const next = (prev + 1) % NOTES.length;
+        localStorage.setItem(manualKey, String(next));
+        idx = (idx + next) % NOTES.length;
+        toast("Today’s Note", "Note changed ✨");
+      } else {
+        const offset = Number(localStorage.getItem("lomla_note_manual_offset") || "0");
+        idx = (idx + offset) % NOTES.length;
+      }
+
+      els.todaysNote.textContent = NOTES[idx];
+    }
+    els.newNoteBtn.addEventListener('click', () => setTodaysNote(true));
+
+    /* =========================
+       MOOD
+    ========================= */
+    const moodButtons = Array.from(document.querySelectorAll('.mood'));
+    const MOOD_KEY = "lomla_mood";
+    const MOOD_LABELS = {
+      calm: "Calm 🌿",
+      happy: "Happy ✨",
+      miss: "Missing 🤍",
+      tired: "Tired ☕",
+      focus: "Focused 📐"
+    };
+
+    function applyMood(m){
+      moodButtons.forEach(b => b.classList.toggle('active', b.dataset.mood === m));
+      els.moodHint.textContent = m ? `Saved mood: ${MOOD_LABELS[m] || m}` : "Pick a mood — it will be saved on this device.";
+    }
+
+    moodButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const m = btn.dataset.mood;
+        localStorage.setItem(MOOD_KEY, m);
+        applyMood(m);
+        toast("Mood Saved", `Today’s mood: ${MOOD_LABELS[m] || m}`);
+      });
+    });
+
+    /* =========================
+       MUSIC
+    ========================= */
+    const MUSIC_KEY = "lomla_music_on";
+    const musicBtn = document.getElementById("musicBtn");
+    const bgMusic = document.getElementById("bgMusic");
+    bgMusic.volume = 0.22;
+
+    async function setMusic(on){
+      localStorage.setItem(MUSIC_KEY, on ? "1" : "0");
+      musicBtn.textContent = on ? "⏸ Music" : "🎵 Music";
+      try{
+        if(on) await bgMusic.play();
+        else bgMusic.pause();
+      }catch(e){
+        toast("Sound blocked", "Tap anywhere once, then try again 🔊");
+      }
+    }
+
+    // default off
+    setMusic(false);
+
+    musicBtn.addEventListener("click", () => {
+      const isOn = localStorage.getItem(MUSIC_KEY) === "1";
+      setMusic(!isOn);
+      toast("Music", !isOn ? "Playing softly 🎵" : "Music paused ⏸️");
+    });
+
+    /* =========================
+       CAT MEOW + FACTS
+       REQUIRED FILES:
+       - assets/meow_lia.mp3
+       - assets/meow_husisa.mp3
+    ========================= */
+    const meowLia = document.getElementById("meowLia");
+    const meowHusisa = document.getElementById("meowHusisa");
+
+    // --- AUDIO UNLOCK (strong) ---
+    let __audioUnlocked = false;
+
+    async function unlockAudio(){
+      if(__audioUnlocked) return;
+      __audioUnlocked = true;
+
+      const audios = [meowLia, meowHusisa, bgMusic].filter(Boolean);
+
+      for(const a of audios){
+        try{
+          a.muted = true;
+          a.volume = 0;
+          await a.play();
+          a.pause();
+          a.currentTime = 0;
+          a.muted = false;
+          a.volume = 1;
+        }catch(e){}
+      }
+
+      toast("Audio ready ✅", "Now Meow will work 🔊");
+    }
+
+    window.addEventListener("pointerdown", unlockAudio, { once:true });
+    window.addEventListener("keydown", unlockAudio, { once:true });
+
+    async function playSound(audioEl){
+      if(!audioEl) return;
+      try{
+        await unlockAudio();
+        audioEl.pause();
+        audioEl.currentTime = 0;
+        audioEl.volume = 1.0;
+        await audioEl.play();
+      }catch(err){
+        toast("No sound", "Use Live Server + check /assets file names ✅");
+      }
+    }
+
+    const CAT_FACTS = {
+      HUSISA: [
+        "Husisa lost a leg because she jumped from 3 floors 🐾",
+        "Husisa LOVES mansaf so much 😭🍛",
+        "Husisa is the one who controls the house 😌👑"
+      ],
+      LIA: [
+        "Lia became a mom of 6 kittens 🤍🐱🐱🐱🐱🐱🐱",
+        "If you mention food… Lia runs to you instantly 🍗⚡",
+        "Lia is the queen of the house (quietly, but 100%) 🌿👑"
+      ]
+    };
+
+    const FACT_IDX_KEY = "lomla_cat_fact_idx_v1";
+    function loadFactIndex(){ try{ return JSON.parse(localStorage.getItem(FACT_IDX_KEY)||"{}")||{} }catch(e){ return {} } }
+    function saveFactIndex(o){ localStorage.setItem(FACT_IDX_KEY, JSON.stringify(o)); }
+
+    function nextFact(cat){
+      const facts = CAT_FACTS[cat] || [];
+      if(!facts.length) return "No facts yet.";
+      const idx = loadFactIndex();
+      const i = Number(idx[cat] || 0);
+      const fact = facts[i % facts.length];
+      idx[cat] = (i + 1) % facts.length;
+      saveFactIndex(idx);
+      return fact;
+    }
+
+    function pop(el){
+      if(!el) return;
+      el.classList.remove("pop");
+      void el.offsetWidth;
+      el.classList.add("pop");
+    }
+
+    // Meow buttons
+    document.querySelectorAll('[data-meow]').forEach(btn=>{
+      btn.addEventListener('click', async ()=>{
+        pop(btn);
+        const cat = btn.dataset.meow; // "LIA" or "HUSISA"
+        if(cat === "LIA") await playSound(meowLia);
+        else await playSound(meowHusisa);
+        toast(`${cat} says 🐾`, "Meow!");
+      });
+    });
+
+    // Fact buttons
+    document.querySelectorAll('[data-fact]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        pop(btn);
+        const cat = btn.dataset.fact;
+        toast(`${cat} Fact ✨`, nextFact(cat));
+      });
+    });
+
+    /* =========================
+       INIT
+    ========================= */
+    updateCounters();
+    setTodaysNote(false);
+    applyMood(localStorage.getItem(MOOD_KEY));
+    setInterval(updateCounters, 30 * 60 * 1000);
+  </script>
+</body>
+</html>
